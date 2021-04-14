@@ -1,0 +1,11 @@
+.looks {
+	border-radius: 2px;
+	/* background-color: #0f67fc; */
+	border: none;
+	padding: 0.2rem 0.5rem;
+	color: white;
+	box-shadow: 0.1rem 0.1rem 0.2rem #888888;
+}
+:active {
+	box-shadow: 0 0 0 0 #0f67fc;
+}
