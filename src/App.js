@@ -6,6 +6,7 @@ import Chat from './screens/chat/Chat';
 import Friends from './screens/friends/Friends';
 import Login from './screens/login/Login';
 import Signup from './screens/signup/Signup';
+import Profile from './screens/profile/Profile';
 import PageNotFound from './screens/pageNotFound/PageNotFound';
 
 import './bootstrap.min.css';
@@ -19,6 +20,9 @@ function App() {
 				<Switch>
 					<Route exact path='/'>
 						<Home />
+					</Route>
+					<Route exact path='/profile'>
+						<Profile />
 					</Route>
 					<Route exact path='/chat'>
 						<Chat />
