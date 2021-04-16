@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { registerUser } from '../../actions/userAction';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Signup = () => {
+const Signup = (props) => {
 	const history = useHistory();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -17,8 +19,8 @@ const Signup = () => {
 			return;
 		}
 
-		//sending and recieving the response from the server
-		//if successful then send the user to the home page
+		props.registerUser(email, password);
+
 		history.push('/');
 	};
 
@@ -72,4 +74,10 @@ const Signup = () => {
 	);
 };
 
-export default Signup;
+const mapStateToProps = (state) => ({
+	loading: state.user.loading,
+	userInfo: state.user.userInfo,
+	error: state.user.error,
+});
+
+export default connect(mapStateToProps, { registerUser })(Signup);
