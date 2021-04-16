@@ -1,26 +1,40 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Signup = () => {
+	const history = useHistory();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 
 	const onSubmitHandler = (e) => {
 		e.preventDefault();
+
+		if (password !== confirmPassword) {
+			toast.error('Passwords did not match');
+			return;
+		}
+
+		//sending and recieving the response from the server
+		//if successful then send the user to the home page
+		history.push('/');
 	};
 
 	return (
 		<div className='container p-4'>
+			<ToastContainer />
 			<h1>Signup</h1>
 			<hr />
 			<form className='form-group w-50 m-auto p-4' onSubmit={onSubmitHandler}>
 				<input
 					className='form-control'
-					type='text'
+					type='email'
 					placeholder='Enter your email'
 					value={email}
 					onChange={(e) => setEmail(e.target.value)}
+					required
 				/>
 				<br />
 				<input
@@ -29,6 +43,8 @@ const Signup = () => {
 					placeholder='Enter your password'
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
+					required
+					minLength={6}
 				/>
 				<br />
 				<input
@@ -37,9 +53,11 @@ const Signup = () => {
 					placeholder='confirm your passowrd'
 					value={confirmPassword}
 					onChange={(e) => setConfirmPassword(e.target.value)}
+					required
+					minLength={6}
 				/>
 				<br />
-				<button className='btn btn-success' type='submit'>
+				<button className='btn btn-primary' type='submit'>
 					Submit
 				</button>
 				<p className='m-2'>
