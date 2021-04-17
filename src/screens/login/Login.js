@@ -15,7 +15,11 @@ const Login = (props) => {
 
 		props.loginUser(email, password);
 
-		history.push('/');
+		if (props.error === null) {
+			history.push('/');
+		}
+
+		toast.error(props.error);
 	};
 
 	return (

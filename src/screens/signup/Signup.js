@@ -21,7 +21,11 @@ const Signup = (props) => {
 
 		props.registerUser(email, password);
 
-		history.push('/');
+		if (props.error === null) {
+			history.push('/');
+		}
+
+		toast.error(props.error);
 	};
 
 	return (

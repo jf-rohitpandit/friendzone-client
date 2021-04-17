@@ -5,6 +5,7 @@ import {
 	USER_LOGIN_FAIL,
 	USER_LOGIN_REQUEST,
 	USER_LOGIN_SUCCESS,
+	USER_LOGOUT,
 } from '../constants/userConstants';
 
 export const registerUser = (email, password) => async (dispatch) => {
@@ -53,4 +54,8 @@ export const loginUser = (email, password) => async (dispatch) => {
 		//correct the error object
 		dispatchEvent({ type: USER_LOGIN_FAIL, error: 'some error occured' });
 	}
+};
+
+export const logoutUser = () => async (dispatch) => {
+	dispatch({ type: USER_LOGOUT });
 };
