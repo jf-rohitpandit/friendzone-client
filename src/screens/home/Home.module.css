@@ -1,0 +1,13 @@
+.avtar {
+	width: 50%;
+	height: 70vh;
+}
+
+.accept {
+	padding: -10px;
+	border-radius: 50%;
+	box-shadow: 3px 3px 3px #fff;
+}
+:hover {
+	box-shadow: 0 0 0 #fff;
+}
