@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './Chat.module.css';
 
 const Chat = () => {
-	return <div>chat page</div>;
+	return <div>Chat page</div>;
 };
 
 export default Chat;
