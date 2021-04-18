@@ -1,0 +1,29 @@
+.avtar {
+	width: 4rem;
+	height: 4rem;
+	object-fit: cover;
+	border-radius: 50%;
+}
+
+.chat {
+	height: 70vh;
+	background-color: white;
+	overflow-y: scroll;
+	scroll-behavior: smooth;
+	padding: 0.5rem 0;
+}
+
+.message {
+	max-width: 70%;
+	border: 1px solid;
+	padding: 1rem;
+	margin: 0.5rem;
+	border-radius: 1rem;
+	width: fit-content;
+	text-align: left;
+}
+
+.me {
+	background-color: #1a1a1a;
+	color: #fff;
+}
