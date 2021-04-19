@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
 import classes from './Chat.module.css';
 import girl from '../home/girl1.jpg';
 
-const Chat = () => {
+const Chat = (props) => {
+	const history = useHistory();
+
+	//protected route
+	useEffect(() => {
+		console.log('protected route');
+		if (props.userInfo === null) {
+			history.push('/login');
+			return;
+		}
+	}, [props.userInfo]);
+
 	return (
 		<div className='container'>
 			<h2>Chat</h2>
@@ -73,4 +86,10 @@ const Chat = () => {
 	);
 };
 
-export default Chat;
+const mapStateToProps = (state) => ({
+	loading: state.user.loading,
+	userInfo: state.user.userInfo,
+	error: state.user.error,
+});
+
+export default connect(mapStateToProps)(Chat);

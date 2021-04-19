@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import gilr1 from './girl1.jpg';
 import classes from './Home.module.css';
 
-const Home = () => {
+const Home = (props) => {
+	const history = useHistory();
+
+	//protected route
+	useEffect(() => {
+		console.log('protected route');
+		if (props.userInfo === null) {
+			history.push('/login');
+			return;
+		}
+	}, [props.userInfo]);
+
 	return (
 		<div className='container'>
 			<div className='d-flex flex-row  rounded text-white bg-primary m-4'>
@@ -31,4 +44,10 @@ const Home = () => {
 	);
 };
 
-export default Home;
+const mapStateToProps = (state) => ({
+	loading: state.user.loading,
+	userInfo: state.user.userInfo,
+	error: state.user.error,
+});
+
+export default connect(mapStateToProps)(Home);

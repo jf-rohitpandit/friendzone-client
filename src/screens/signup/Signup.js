@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { registerUser } from '../../actions/userAction';
@@ -10,6 +10,15 @@ const Signup = (props) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
+
+	//protected route
+	useEffect(() => {
+		console.log('protected route');
+		if (props.userInfo !== null) {
+			history.push('/');
+			return;
+		}
+	}, [props.userInfo]);
 
 	const onSubmitHandler = (e) => {
 		e.preventDefault();
