@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import girl from '../home/girl1.jpg';
@@ -6,6 +6,14 @@ import classes from './Profile.module.css';
 
 const Profile = (props) => {
 	const history = useHistory();
+
+	const [name, setName] = useState('Full Name');
+	const [gender, setGender] = useState('Male');
+	const [state, setState] = useState('Delhi');
+	const [country, setCountry] = useState('India');
+	const [info, setInfo] = useState(
+		` Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas porro magnam amet nobis eius laboriosam at quisquam? Nulla laudantium aliquid dolor nostrum hic numquam, molestiae vitae? Facere laborum quaerat fuga ducimus dolore laudantium rem, laboriosam nihil error sapiente repudiandae, repellat nam, odit distinctio blanditiis doloremque voluptatum sed totam ipsum reiciendis! `
+	);
 
 	//protected route
 	useEffect(() => {
@@ -29,7 +37,8 @@ const Profile = (props) => {
 						<input
 							type='text'
 							class='form-control-plaintext pl-1 pr-1'
-							value='Test Name'
+							value={name}
+							onChange={(e) => setName(e.target.value)}
 						/>
 					</div>
 					<label htmlFor='staticEmail' class='col-sm-2 col-form-label'>
@@ -38,7 +47,9 @@ const Profile = (props) => {
 					<div className='col-sm-10'>
 						<select
 							class='form-control-plaintext pl-1 pr-1'
-							id='exampleSelect1'>
+							id='exampleSelect1'
+							value={gender}
+							onChange={(e) => setGender(e.target.value)}>
 							<option>Male</option>
 							<option>Female</option>
 							<option>Other</option>
@@ -51,7 +62,8 @@ const Profile = (props) => {
 						<input
 							type='text'
 							class='form-control-plaintext pl-1 pr-1'
-							value='Delhi'
+							value={state}
+							onChange={(e) => setState(e.target.value)}
 						/>
 					</div>
 					<label htmlFor='staticEmail' class='col-sm-2 col-form-label'>
@@ -61,7 +73,8 @@ const Profile = (props) => {
 						<input
 							type='text'
 							class='form-control-plaintext pl-1 pr-1'
-							value='India'
+							value={country}
+							onChange={(e) => setCountry(e.target.value)}
 						/>
 					</div>
 					<label htmlFor='staticEmail' class='col-sm-2 col-form-label'>
@@ -71,21 +84,8 @@ const Profile = (props) => {
 						<textarea
 							rows='5'
 							class='form-control-plaintext pl-1 pr-1'
-							value='loremloremlorem lorem lorem lorem lorem lorem 
-              lorem lorem lorem lorem lorem lorem lorem lorem lorem 
-              lorem lorem lorem lorem lorem lorem lorem lorem lorem 
-              lorem lorem  lorem lorem lorem lorem lorem lorem lorem
-               lorem lorem lorem lorem lorem lorem lorem lorem lorem
-                lorem lorem lorem lorem lorem lorem lorem lorem lorem 
-                lorem lorem lorem lorem lorem lorem lorem lorem lorem
-                 lorem lorme lorem lorem lorem lorem lorem lorem lorem
-                lorem lorem lorem lorem lorem lorem lorem lorme 
-                lorem lorem lorem lorem lorem lorem lorem lorem
-                lorem lorme lorme lorme lorem lorem lorem lorem lorem 
-                lorem lorem lorem lorem lorem lorem lorem lorem lorem 
-                lorem lorem lorem lorem lorem lorem lorem lorem lorem l
-                lorem lorem lorem lorem lorem lorem lorem lorem lorem
-                '
+							value={info}
+							onChange={(e) => setInfo(e.target.value)}
 						/>
 					</div>
 					<label htmlFor='staticEmail' class='col-sm-2 col-form-label'>
