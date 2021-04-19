@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
 import girl2 from '../home/girl4.jpg';
 import classes from './Friends.module.css';
 
-const Friends = () => {
+const Friends = (props) => {
+	const history = useHistory();
+
+	//protected route
+	useEffect(() => {
+		console.log('protected route');
+		if (props.userInfo === null) {
+			history.push('/login');
+			return;
+		}
+	}, [props.userInfo]);
+
 	return (
 		<div className='container'>
 			<h2>My Friends</h2>
@@ -39,4 +52,10 @@ const Friends = () => {
 	);
 };
 
-export default Friends;
+const mapStateToProps = (state) => ({
+	loading: state.user.loading,
+	userInfo: state.user.userInfo,
+	error: state.user.error,
+});
+
+export default connect(mapStateToProps)(Friends);

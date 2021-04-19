@@ -1,15 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import girl from '../home/girl1.jpg';
 import classes from './Profile.module.css';
 
-const Profile = () => {
+const Profile = (props) => {
+	const history = useHistory();
+
+	//protected route
+	useEffect(() => {
+		console.log('protected route');
+		if (props.userInfo === null) {
+			history.push('/login');
+			return;
+		}
+	}, [props.userInfo]);
+
 	return (
 		<div className='container'>
 			<h2>My Profile</h2>
 			<hr />
 			<div className=''>
 				<form action='' className='form-group row'>
-					<label for='staticEmail' class='col-sm-2 col-form-label'>
+					<label htmlFor='staticEmail' class='col-sm-2 col-form-label'>
 						Full Name:
 					</label>
 					<div class='col-sm-10'>
@@ -19,7 +32,7 @@ const Profile = () => {
 							value='Test Name'
 						/>
 					</div>
-					<label for='staticEmail' class='col-sm-2 col-form-label'>
+					<label htmlFor='staticEmail' class='col-sm-2 col-form-label'>
 						Gender:
 					</label>
 					<div className='col-sm-10'>
@@ -31,7 +44,7 @@ const Profile = () => {
 							<option>Other</option>
 						</select>
 					</div>
-					<label for='staticEmail' class='col-sm-2 col-form-label'>
+					<label htmlFor='staticEmail' class='col-sm-2 col-form-label'>
 						State:
 					</label>
 					<div class='col-sm-10'>
@@ -41,7 +54,7 @@ const Profile = () => {
 							value='Delhi'
 						/>
 					</div>
-					<label for='staticEmail' class='col-sm-2 col-form-label'>
+					<label htmlFor='staticEmail' class='col-sm-2 col-form-label'>
 						Country:
 					</label>
 					<div class='col-sm-10'>
@@ -51,7 +64,7 @@ const Profile = () => {
 							value='India'
 						/>
 					</div>
-					<label for='staticEmail' class='col-sm-2 col-form-label'>
+					<label htmlFor='staticEmail' class='col-sm-2 col-form-label'>
 						About Me:
 					</label>
 					<div class='col-sm-10'>
@@ -75,7 +88,7 @@ const Profile = () => {
                 '
 						/>
 					</div>
-					<label for='staticEmail' class='col-sm-2 col-form-label'>
+					<label htmlFor='staticEmail' class='col-sm-2 col-form-label'>
 						Avtar:
 					</label>
 					<div class='col-sm-10 d-flex align-items-center'>
@@ -89,4 +102,10 @@ const Profile = () => {
 	);
 };
 
-export default Profile;
+const mapStateToProps = (state) => ({
+	loading: state.user.loading,
+	userInfo: state.user.userInfo,
+	error: state.user.error,
+});
+
+export default connect(mapStateToProps)(Profile);

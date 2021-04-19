@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
 	USER_REGISTER_REQUEST,
 	USER_REGISTER_SUCCESS,
@@ -13,7 +14,7 @@ export const registerUser = (email, password) => async (dispatch) => {
 		dispatch({ type: USER_REGISTER_REQUEST });
 
 		//change the URL to the actual url of the project
-		fetch('https://jsonplaceholder.typicode.com/users', {
+		fetch('http://localhost:5000/auth/signup', {
 			method: 'POST',
 			body: JSON.stringify({
 				email,
@@ -28,7 +29,7 @@ export const registerUser = (email, password) => async (dispatch) => {
 	} catch (error) {
 		console.log('error in register ');
 		//correct the error object
-		dispatchEvent({ type: USER_REGISTER_FAIL, error: 'some error occured' });
+		dispatchEvent({ type: USER_REGISTER_FAIL, error: error });
 	}
 };
 
@@ -37,7 +38,7 @@ export const loginUser = (email, password) => async (dispatch) => {
 		dispatch({ type: USER_LOGIN_REQUEST });
 
 		//change the URL to the actual url of the project
-		fetch('https://jsonplaceholder.typicode.com/users', {
+		fetch('http://localhost:5000/auth/login', {
 			method: 'POST',
 			body: JSON.stringify({
 				email,
@@ -52,7 +53,7 @@ export const loginUser = (email, password) => async (dispatch) => {
 	} catch (error) {
 		console.log('error in register ');
 		//correct the error object
-		dispatchEvent({ type: USER_LOGIN_FAIL, error: 'some error occured' });
+		dispatchEvent({ type: USER_LOGIN_FAIL, error: error });
 	}
 };
 
