@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { loginUser } from '../../actions/authAction';
-import { saveToken } from '../../localStorage';
 
 const Login = (props) => {
 	const history = useHistory();
@@ -17,7 +16,6 @@ const Login = (props) => {
 		console.log(props.token);
 		if (props.token) {
 			console.log('should redirect');
-			saveToken(props.token);
 			history.push('/');
 		}
 	}, [props.token]);

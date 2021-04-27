@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
 	USER_REGISTER_REQUEST,
 	USER_REGISTER_SUCCESS,
@@ -16,26 +17,21 @@ export const registerUser = (email, password) => async (dispatch) => {
 		console.log('user register request');
 		console.log(USER_REGISTER_REQUEST);
 
-		//change the URL to the actual url of the project
-		fetch('http://localhost:5000/auth/signup', {
-			method: 'POST',
-			body: JSON.stringify({
-				email,
-				password,
-			}),
-			headers: {
-				'content-type': 'application/json',
-			},
-		})
-			.then((res) => res.json())
-			.then((data) => {
-				dispatch({ type: USER_REGISTER_SUCCESS, payload: data.token });
-				saveToken(data.token);
-			});
+		const result = await axios.post('http://localhost:5000/auth/signup', {
+			email,
+			password,
+		});
+
+		console.log('authAction', result);
+
+		dispatch({
+			type: USER_REGISTER_SUCCESS,
+			payload: result.data.token,
+		});
+		saveToken(result.data.token);
 	} catch (error) {
-		console.log('error in register ');
-		//correct the error object
-		dispatch({ type: USER_REGISTER_FAIL, error: error.message });
+		console.log('error in registerAction ', error.response.data.message);
+		dispatch({ type: USER_REGISTER_FAIL, error: error.response.data.message });
 	}
 };
 
@@ -44,26 +40,19 @@ export const loginUser = (email, password) => async (dispatch) => {
 		dispatch({ type: USER_LOGIN_REQUEST });
 		console.log('login');
 
-		//change the URL to the actual url of the project
-		fetch('http://localhost:5000/auth/login', {
-			method: 'POST',
-			body: JSON.stringify({
-				email,
-				password,
-			}),
-			headers: {
-				'content-type': 'application/json',
-			},
-		})
-			.then((res) => res.json())
-			.then((data) => {
-				dispatch({ type: USER_LOGIN_SUCCESS, payload: data.token });
-			})
-			.catch((error) => console.log(error));
+		const result = await axios.post('http://localhost:5000/auth/login', {
+			email,
+			password,
+		});
+
+		dispatch({ type: USER_LOGIN_SUCCESS, payload: result.data.token });
+		saveToken(result.data.token);
 	} catch (error) {
-		console.log('error in register ');
-		//correct the error object
-		dispatchEvent({ type: USER_LOGIN_FAIL, error: error });
+		console.log('error in loginAction ', error);
+		dispatch({
+			type: USER_LOGIN_FAIL,
+			error: error.response.data.message,
+		});
 	}
 };
 
