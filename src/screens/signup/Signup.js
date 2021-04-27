@@ -17,7 +17,7 @@ const Signup = (props) => {
 		setMounted(true);
 		console.log('protected route');
 		console.log('In the useEffect of signup route');
-		if (props.token && props.token.token) {
+		if (props.token) {
 			history.push('/');
 			return;
 		}
