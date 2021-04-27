@@ -11,11 +11,10 @@ import {
 import { loadToken } from '../localStorage';
 
 const savedToken = loadToken();
-console.log(savedToken);
 
 const initialState = {
 	loading: false,
-	token: loadToken,
+	token: null,
 	error: null,
 };
 
