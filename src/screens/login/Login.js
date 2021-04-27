@@ -13,14 +13,20 @@ const Login = (props) => {
 
 	useEffect(() => {
 		setMounted(true);
-		if (props.userInfo && props.userInfo.token) {
+		console.log(props.token);
+		if (props.token) {
 			console.log('should redirect');
 			history.push('/');
 		}
-	}, [props.userInfo]);
+	}, [props.token]);
+
+	//for displaying error message in the ui
+	useEffect(() => {
+		toast.error(props.error);
+	}, [props.error]);
 
 	if (mounted === false) {
-		if (props.userInfo !== null) {
+		if (props.token !== null) {
 			history.push('/');
 			return;
 		}
@@ -31,16 +37,8 @@ const Login = (props) => {
 
 		// console.log('login  submit');
 		props.loginUser(email, password);
-		console.log(props.error);
+		console.log('login.js', props.error);
 		console.log('lo');
-
-		if (props.userInfo && props.userInfo.token) {
-			console.log(props.error);
-			console.log('should redirect');
-			history.push('/');
-		}
-
-		toast.error(props.error);
 	};
 
 	return (
@@ -85,7 +83,7 @@ const Login = (props) => {
 
 const mapStateToProps = (state) => ({
 	loading: state.auth.loading,
-	userInfo: state.auth.userInfo,
+	token: state.auth.token,
 	error: state.auth.error,
 });
 

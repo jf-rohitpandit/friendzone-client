@@ -17,14 +17,19 @@ const Signup = (props) => {
 		setMounted(true);
 		console.log('protected route');
 		console.log('In the useEffect of signup route');
-		if (props.userInfo && props.userInfo.token) {
+		if (props.token) {
 			history.push('/');
 			return;
 		}
-	}, [props.userInfo]);
+	}, [props.token]);
+
+	//useEffect to show the error in the ui
+	useEffect(() => {
+		toast.error(props.error);
+	}, [props.error]);
 
 	if (mounted === false) {
-		if (props.userInfo !== null) {
+		if (props.token !== null) {
 			history.push('/');
 			return;
 		}
@@ -93,7 +98,7 @@ const Signup = (props) => {
 
 const mapStateToProps = (state) => ({
 	loading: state.auth.loading,
-	userInfo: state.auth.userInfo,
+	token: state.auth.token,
 	error: state.auth.error,
 });
 

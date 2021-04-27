@@ -6,31 +6,32 @@ import {
 	USER_REGISTER_FAIL,
 	USER_REGISTER_REQUEST,
 	USER_REGISTER_SUCCESS,
+	SET_ERROR_NULL,
 } from '../constants/authConstants';
+import { loadToken } from '../localStorage';
+
+const savedToken = loadToken();
 
 const initialState = {
 	loading: false,
-	userInfo: null,
+	token: savedToken,
 	error: null,
 };
 
 export default function (state = initialState, action) {
+	console.log('authReducer', action);
 	switch (action.type) {
 		case USER_REGISTER_REQUEST: {
-			console.log(' in the register request reducer');
-
 			return {
 				...state,
 				loading: true,
-				userInfo: null,
-				error: null,
 			};
 		}
 		case USER_REGISTER_SUCCESS:
 			return {
 				...state,
 				loading: false,
-				userInfo: action.payload,
+				token: action.payload,
 			};
 		case USER_REGISTER_FAIL:
 			return {
@@ -47,20 +48,26 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				loading: false,
-				userInfo: action.payload,
+				token: action.payload,
 			};
 		case USER_LOGIN_FAIL:
 			return {
 				...state,
 				loading: false,
-				error: action.payload,
+				error: action.error,
 			};
 
 		case USER_LOGOUT:
 			return {
 				loading: false,
 				error: null,
-				userInfo: null,
+				token: null,
+			};
+
+		case SET_ERROR_NULL:
+			return {
+				...state,
+				error: null,
 			};
 		default:
 			return state;

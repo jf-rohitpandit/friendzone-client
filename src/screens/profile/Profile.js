@@ -18,11 +18,11 @@ const Profile = (props) => {
 	//protected route
 	useEffect(() => {
 		console.log('protected route');
-		if (props.userInfo === null) {
+		if (props.token === null) {
 			history.push('/login');
 			return;
 		}
-	}, [props.userInfo]);
+	}, [props.token]);
 
 	const onSubmitHandler = (e) => {
 		e.preventDefault();
@@ -108,7 +108,7 @@ const Profile = (props) => {
 
 const mapStateToProps = (state) => ({
 	loading: state.auth.loading,
-	userInfo: state.auth.userInfo,
+	token: state.auth.token,
 	error: state.auth.error,
 });
 
