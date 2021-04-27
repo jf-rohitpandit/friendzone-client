@@ -23,6 +23,11 @@ const Signup = (props) => {
 		}
 	}, [props.token]);
 
+	//useEffect to show the error in the ui
+	useEffect(() => {
+		toast.error(props.error);
+	}, [props.error]);
+
 	if (mounted === false) {
 		if (props.token !== null) {
 			history.push('/');

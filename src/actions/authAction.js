@@ -7,6 +7,7 @@ import {
 	USER_LOGIN_REQUEST,
 	USER_LOGIN_SUCCESS,
 	USER_LOGOUT,
+	SET_ERROR_NULL,
 } from '../constants/authConstants';
 import { saveToken } from '../localStorage';
 
@@ -32,6 +33,9 @@ export const registerUser = (email, password) => async (dispatch) => {
 	} catch (error) {
 		console.log('error in registerAction ', error.response.data.message);
 		dispatch({ type: USER_REGISTER_FAIL, error: error.response.data.message });
+		setTimeout(() => {
+			dispatch({ type: SET_ERROR_NULL });
+		}, 5000);
 	}
 };
 
@@ -53,6 +57,9 @@ export const loginUser = (email, password) => async (dispatch) => {
 			type: USER_LOGIN_FAIL,
 			error: error.response.data.message,
 		});
+		setTimeout(() => {
+			dispatch({ type: SET_ERROR_NULL });
+		}, 5000);
 	}
 };
 

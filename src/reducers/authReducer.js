@@ -6,6 +6,7 @@ import {
 	USER_REGISTER_FAIL,
 	USER_REGISTER_REQUEST,
 	USER_REGISTER_SUCCESS,
+	SET_ERROR_NULL,
 } from '../constants/authConstants';
 import { loadToken } from '../localStorage';
 
@@ -24,8 +25,6 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				loading: true,
-				token: null,
-				error: null,
 			};
 		}
 		case USER_REGISTER_SUCCESS:
@@ -55,7 +54,7 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				loading: false,
-				error: action.payload,
+				error: action.error,
 			};
 
 		case USER_LOGOUT:
@@ -63,6 +62,12 @@ export default function (state = initialState, action) {
 				loading: false,
 				error: null,
 				token: null,
+			};
+
+		case SET_ERROR_NULL:
+			return {
+				...state,
+				error: null,
 			};
 		default:
 			return state;

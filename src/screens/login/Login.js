@@ -20,6 +20,11 @@ const Login = (props) => {
 		}
 	}, [props.token]);
 
+	//for displaying error message in the ui
+	useEffect(() => {
+		toast.error(props.error);
+	}, [props.error]);
+
 	if (mounted === false) {
 		if (props.token !== null) {
 			history.push('/');
@@ -32,16 +37,8 @@ const Login = (props) => {
 
 		// console.log('login  submit');
 		props.loginUser(email, password);
-		console.log(props.error);
+		console.log('login.js', props.error);
 		console.log('lo');
-
-		if (props.token && props.token.token) {
-			console.log(props.error);
-			console.log('should redirect');
-			history.push('/');
-		}
-
-		toast.error(props.error);
 	};
 
 	return (
