@@ -11,15 +11,17 @@ import {
 import { loadToken } from '../localStorage';
 
 const savedToken = loadToken();
+console.log(savedToken);
 
 const initialState = {
 	loading: false,
-	token: savedToken,
+	token: loadToken,
 	error: null,
 };
 
 export default function (state = initialState, action) {
 	console.log('authReducer', action);
+	console.log('reducer', loadToken());
 	switch (action.type) {
 		case USER_REGISTER_REQUEST: {
 			return {
