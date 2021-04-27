@@ -10,11 +10,11 @@ const PageNotFound = (props) => {
 	//protected route
 	useEffect(() => {
 		console.log('protected route');
-		if (props.userInfo === null) {
+		if (props.token === null) {
 			history.push('/login');
 			return;
 		}
-	}, [props.userInfo]);
+	}, [props.token]);
 
 	return (
 		<div className={`container d-flex flex-column  ${classes.looks} `}>
@@ -29,7 +29,7 @@ const PageNotFound = (props) => {
 
 const mapStateToProps = (state) => ({
 	loading: state.user.loading,
-	userInfo: state.user.userInfo,
+	token: state.user.token,
 	error: state.user.error,
 });
 

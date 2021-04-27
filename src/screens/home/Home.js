@@ -11,11 +11,11 @@ const Home = (props) => {
 	//protected route
 	useEffect(() => {
 		setMounted(true);
-	}, [props.userInfo]);
+	}, [props.token]);
 
 	if (mounted === false) {
 		console.log('hii');
-		if (props.userInfo === null) {
+		if (props.token === null) {
 			console.log('login');
 			history.push('/login');
 			return null;
@@ -52,7 +52,7 @@ const Home = (props) => {
 
 const mapStateToProps = (state) => ({
 	loading: state.auth.loading,
-	userInfo: state.auth.userInfo,
+	token: state.auth.token,
 	error: state.auth.error,
 });
 

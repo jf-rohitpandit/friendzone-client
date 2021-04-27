@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { loginUser } from '../../actions/authAction';
+import { saveToken } from '../../localStorage';
 
 const Login = (props) => {
 	const history = useHistory();
@@ -13,14 +14,16 @@ const Login = (props) => {
 
 	useEffect(() => {
 		setMounted(true);
-		if (props.userInfo && props.userInfo.token) {
+		console.log(props.token);
+		if (props.token) {
 			console.log('should redirect');
+			saveToken(props.token);
 			history.push('/');
 		}
-	}, [props.userInfo]);
+	}, [props.token]);
 
 	if (mounted === false) {
-		if (props.userInfo !== null) {
+		if (props.token !== null) {
 			history.push('/');
 			return;
 		}
@@ -34,7 +37,7 @@ const Login = (props) => {
 		console.log(props.error);
 		console.log('lo');
 
-		if (props.userInfo && props.userInfo.token) {
+		if (props.token && props.token.token) {
 			console.log(props.error);
 			console.log('should redirect');
 			history.push('/');
@@ -85,7 +88,7 @@ const Login = (props) => {
 
 const mapStateToProps = (state) => ({
 	loading: state.auth.loading,
-	userInfo: state.auth.userInfo,
+	token: state.auth.token,
 	error: state.auth.error,
 });
 

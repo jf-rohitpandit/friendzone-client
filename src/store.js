@@ -3,7 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/index.js';
 
-const initialState = { loading: false };
+const initialState = {};
 
 const middleware = [thunk];
 

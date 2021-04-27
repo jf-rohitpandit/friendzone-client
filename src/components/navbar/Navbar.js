@@ -3,6 +3,7 @@ import { NavLink, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authAction';
 import PropTypes from 'prop-types';
+import { deleteToken } from '../../localStorage';
 
 const Navbar = (props) => {
 	const history = useHistory();
@@ -11,6 +12,7 @@ const Navbar = (props) => {
 		e.preventDefault();
 
 		props.logoutUser();
+		deleteToken();
 		console.log('logout');
 
 		history.push('/login');
@@ -42,9 +44,7 @@ const Navbar = (props) => {
 			</ul>
 
 			<form className='' onSubmit={logoutHandler}>
-				<button
-					className='btn btn-secondary'
-					disabled={props.userInfo === null}>
+				<button className='btn btn-secondary' disabled={props.token === null}>
 					Logout
 				</button>
 			</form>
@@ -53,7 +53,7 @@ const Navbar = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-	userInfo: state.auth.userInfo,
+	token: state.auth.token,
 });
 
 const mapDispatchToProps = (dispatch) => ({

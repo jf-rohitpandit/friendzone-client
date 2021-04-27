@@ -10,11 +10,11 @@ const Chat = (props) => {
 	//protected route
 	useEffect(() => {
 		console.log('protected route');
-		if (props.userInfo === null) {
+		if (props.token === null) {
 			history.push('/login');
 			return;
 		}
-	}, [props.userInfo]);
+	}, [props.token]);
 
 	return (
 		<div className='container'>
@@ -88,7 +88,7 @@ const Chat = (props) => {
 
 const mapStateToProps = (state) => ({
 	loading: state.auth.loading,
-	userInfo: state.auth.userInfo,
+	token: state.auth.token,
 	error: state.auth.error,
 });
 
