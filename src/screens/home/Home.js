@@ -25,6 +25,14 @@ const Home = (props) => {
 		}
 	}
 
+	const acceptHandler = () => {
+		console.log('accepted');
+	};
+
+	const rejectHandler = () => {
+		console.log('rejected');
+	};
+
 	return (
 		<div className='container'>
 			<div className='d-flex flex-row  rounded text-white bg-primary m-4'>
@@ -38,11 +46,18 @@ const Home = (props) => {
 							{Math.floor(Math.random() * 20) + 15}
 						</h5>
 						<h5 className='text-white'>{faker.name.gender()}</h5>
+						<h6 className='text-white'>
+							{`${faker.address.state()}, ${faker.address.country()}`}
+						</h6>
 						<p>{faker.lorem.lines()}</p>
 					</div>
 					<div className='d-flex justify-content-around'>
-						<button className='btn btn-success'>Accept</button>
-						<button className='btn btn-danger'>Reject</button>
+						<button className='btn btn-success' onClick={acceptHandler}>
+							Accept
+						</button>
+						<button className='btn btn-danger' onClick={rejectHandler}>
+							Reject
+						</button>
 					</div>
 				</div>
 			</div>
