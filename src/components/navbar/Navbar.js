@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logoutUser } from '../../actions/userAction';
+import { logoutUser } from '../../actions/authAction';
 import PropTypes from 'prop-types';
 
 const Navbar = (props) => {
@@ -42,14 +42,22 @@ const Navbar = (props) => {
 			</ul>
 
 			<form className='' onSubmit={logoutHandler}>
-				<button className='btn btn-secondary'>Logout</button>
+				<button
+					className='btn btn-secondary'
+					disabled={props.userInfo === null}>
+					Logout
+				</button>
 			</form>
 		</nav>
 	);
 };
 
 const mapStateToProps = (state) => ({
-	logoutUser: state.user.logoutUser,
+	userInfo: state.auth.userInfo,
 });
 
-export default connect(mapStateToProps, { logoutUser })(Navbar);
+const mapDispatchToProps = (dispatch) => ({
+	logoutUser: () => dispatch(logoutUser()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

@@ -87,9 +87,9 @@ const Chat = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-	loading: state.user.loading,
-	userInfo: state.user.userInfo,
-	error: state.user.error,
+	loading: state.auth.loading,
+	userInfo: state.auth.userInfo,
+	error: state.auth.error,
 });
 
 export default connect(mapStateToProps)(Chat);

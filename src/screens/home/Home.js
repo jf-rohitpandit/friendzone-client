@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import gilr1 from './girl1.jpg';
@@ -6,15 +6,21 @@ import classes from './Home.module.css';
 
 const Home = (props) => {
 	const history = useHistory();
+	const [mounted, setMounted] = useState(false);
 
 	//protected route
 	useEffect(() => {
-		console.log('protected route');
-		if (props.userInfo === null) {
-			history.push('/login');
-			return;
-		}
+		setMounted(true);
 	}, [props.userInfo]);
+
+	if (mounted === false) {
+		console.log('hii');
+		if (props.userInfo === null) {
+			console.log('login');
+			history.push('/login');
+			return null;
+		}
+	}
 
 	return (
 		<div className='container'>
@@ -45,9 +51,9 @@ const Home = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-	loading: state.user.loading,
-	userInfo: state.user.userInfo,
-	error: state.user.error,
+	loading: state.auth.loading,
+	userInfo: state.auth.userInfo,
+	error: state.auth.error,
 });
 
 export default connect(mapStateToProps)(Home);

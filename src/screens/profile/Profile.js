@@ -24,12 +24,16 @@ const Profile = (props) => {
 		}
 	}, [props.userInfo]);
 
+	const onSubmitHandler = (e) => {
+		e.preventDefault();
+	};
+
 	return (
 		<div className='container'>
 			<h2>My Profile</h2>
 			<hr />
 			<div className=''>
-				<form action='' className='form-group row'>
+				<form onSubmit={onSubmitHandler} className='form-group row'>
 					<label htmlFor='staticEmail' class='col-sm-2 col-form-label'>
 						Full Name:
 					</label>
@@ -103,9 +107,9 @@ const Profile = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-	loading: state.user.loading,
-	userInfo: state.user.userInfo,
-	error: state.user.error,
+	loading: state.auth.loading,
+	userInfo: state.auth.userInfo,
+	error: state.auth.error,
 });
 
 export default connect(mapStateToProps)(Profile);

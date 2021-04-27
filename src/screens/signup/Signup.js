@@ -1,24 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { registerUser } from '../../actions/userAction';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { registerUser } from '../../actions/authAction';
 
 const Signup = (props) => {
 	const history = useHistory();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
+	const [mounted, setMounted] = useState(false);
 
 	//protected route
 	useEffect(() => {
+		setMounted(true);
 		console.log('protected route');
-		if (props.userInfo !== null) {
+		console.log('In the useEffect of signup route');
+		if (props.userInfo && props.userInfo.token) {
 			history.push('/');
 			return;
 		}
 	}, [props.userInfo]);
+
+	if (mounted === false) {
+		if (props.userInfo !== null) {
+			history.push('/');
+			return;
+		}
+	}
 
 	const onSubmitHandler = (e) => {
 		e.preventDefault();
@@ -29,12 +39,6 @@ const Signup = (props) => {
 		}
 
 		props.registerUser(email, password);
-
-		if (props.error === null) {
-			history.push('/');
-		}
-
-		toast.error(props.error);
 	};
 
 	return (
@@ -88,9 +92,13 @@ const Signup = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-	loading: state.user.loading,
-	userInfo: state.user.userInfo,
-	error: state.user.error,
+	loading: state.auth.loading,
+	userInfo: state.auth.userInfo,
+	error: state.auth.error,
 });
 
-export default connect(mapStateToProps, { registerUser })(Signup);
+const mapDispatchToProps = (dispatch) => ({
+	registerUser: (email, password) => dispatch(registerUser(email, password)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

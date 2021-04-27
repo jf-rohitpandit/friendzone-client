@@ -1,30 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loginUser } from '../../actions/userAction';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { loginUser } from '../../actions/authAction';
 
 const Login = (props) => {
 	const history = useHistory();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [mounted, setMounted] = useState(false);
 
-	//protected route
 	useEffect(() => {
-		console.log('protected route');
+		setMounted(true);
+		if (props.userInfo && props.userInfo.token) {
+			console.log('should redirect');
+			history.push('/');
+		}
+	}, [props.userInfo]);
+
+	if (mounted === false) {
 		if (props.userInfo !== null) {
 			history.push('/');
 			return;
 		}
-	}, [props.userInfo]);
+	}
 
 	const onSubmitHandler = (e) => {
 		e.preventDefault();
 
+		// console.log('login  submit');
 		props.loginUser(email, password);
+		console.log(props.error);
+		console.log('lo');
 
-		if (props.error === null) {
+		if (props.userInfo && props.userInfo.token) {
+			console.log(props.error);
+			console.log('should redirect');
 			history.push('/');
 		}
 
@@ -72,9 +84,13 @@ const Login = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-	loading: state.user.loading,
-	userInfo: state.user.userInfo,
-	error: state.user.error,
+	loading: state.auth.loading,
+	userInfo: state.auth.userInfo,
+	error: state.auth.error,
 });
 
-export default connect(mapStateToProps, { loginUser })(Login);
+const mapDispatchToProps = (dispatch) => ({
+	loginUser: (email, password) => dispatch(loginUser(email, password)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
