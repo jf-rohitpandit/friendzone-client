@@ -1,48 +1,87 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import gilr1 from './girl1.jpg';
 import classes from './Home.module.css';
+import { loadUser } from '../../actions/userAction';
 
 const Home = (props) => {
 	const history = useHistory();
 	const [mounted, setMounted] = useState(false);
+	const [name, setName] = useState('');
+	const [image, setImage] = useState(null);
+	const [country, setCountry] = useState('');
+	const [age, setAge] = useState(0);
+	const [aboutMe, setAboutMe] = useState('');
+	const [gender, setGender] = useState('');
+	const [change, setChange] = useState(1);
 
 	//protected route
 	useEffect(() => {
 		setMounted(true);
 	}, [props.token]);
 
+	useEffect(() => {
+		console.log(props.userInfo);
+		if (props.userInfo) {
+			setDataIntoState(props.userInfo);
+		}
+	}, [change, props.userInfo]);
+
 	if (mounted === false) {
-		console.log('hii');
+		props.loadUser();
 		if (props.token === null) {
-			console.log('login');
 			history.push('/login');
 			return null;
 		}
 	}
 
+	const acceptHandler = () => {
+		console.log('accepted');
+		console.log('.accep', props.loadUser());
+		setChange((state) => !state);
+	};
+
+	const rejectHandler = () => {
+		console.log('rejected');
+		console.log('.accep', props.loadUser());
+		setChange((state) => !state);
+	};
+
+	const setDataIntoState = (userInfo) => {
+		console.log(userInfo);
+		const { name, image, country, age, aboutMe, gender } = userInfo;
+
+		console.log(name, image, country, age, aboutMe, gender);
+
+		console.log(image);
+		setName(name);
+
+		setCountry(country);
+		setImage(image);
+		setAboutMe(aboutMe);
+		setAge(age);
+		setGender(gender);
+	};
+
 	return (
 		<div className='container'>
 			<div className='d-flex flex-row  rounded text-white bg-primary m-4'>
-				<img src={gilr1} alt='' className={classes.avtar} />
+				<img src={image} alt='' className={classes.avtar} />
 				<div className='d-flex flex-column justify-content-center p-3'>
 					<div className=''>
-						<h2 className='text-white'>firstName LastName</h2>
-						<h5 className='text-white'>22 years</h5>
-						<p>
-							Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt
-							odio hic ipsum distinctio error ipsam? Hic adipisci saepe placeat
-							ad necessitatibus nihil quasi asperiores vel praesentium expedita
-							in quisquam veritatis quo facilis possimus, repellat dolore
-							voluptate laborum aut reiciendis sit cumque. Dolore corrupti quas
-							repellat odio, corporis dicta recusandae autem? Repellat illum
-							laborum hic doloremque quos ipsam rem accusantium consequatu
-						</p>
+						<h2 className='text-white'>{name}</h2>
+						<h5 className='text-white'>{age}</h5>
+						<h5 className='text-white'>{gender}</h5>
+						<h6 className='text-white'>{` ${country}`}</h6>
+						<p>{aboutMe}</p>
 					</div>
 					<div className='d-flex justify-content-around'>
-						<button className='btn btn-success'>Accept</button>
-						<button className='btn btn-danger'>Reject</button>
+						<button className='btn btn-success' onClick={acceptHandler}>
+							Accept
+						</button>
+						<button className='btn btn-danger' onClick={rejectHandler}>
+							Reject
+						</button>
 					</div>
 				</div>
 			</div>
@@ -54,6 +93,13 @@ const mapStateToProps = (state) => ({
 	loading: state.auth.loading,
 	token: state.auth.token,
 	error: state.auth.error,
+	userLoading: state.user.loading,
+	userInfo: state.user.userInfo,
+	userError: state.user.error,
 });
 
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = (dispatch) => ({
+	loadUser: () => dispatch(loadUser()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

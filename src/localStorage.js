@@ -1,7 +1,9 @@
 export const loadToken = () => {
 	try {
+		// const tokenString = localStorage.getItem('token');
 		const tokenString = localStorage.getItem('token');
-		return tokenString.parse();
+		console.log('loadToken', JSON.parse(tokenString));
+		return JSON.parse(tokenString);
 	} catch (error) {
 		return null;
 	}

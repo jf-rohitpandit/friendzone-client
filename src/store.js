@@ -2,8 +2,18 @@ import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/index.js';
+import { loadToken } from './localStorage';
 
-const initialState = {};
+const savedToken = loadToken();
+console.log('saved token', savedToken);
+
+const initialState = {
+	auth: {
+		token: savedToken,
+		loading: false,
+		error: null,
+	},
+};
 
 const middleware = [thunk];
 
