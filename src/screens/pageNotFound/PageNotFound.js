@@ -33,9 +33,9 @@ const PageNotFound = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-	loading: state.user.loading,
-	token: state.user.token,
-	error: state.user.error,
+	loading: state.auth.loading,
+	token: state.auth.token,
+	error: state.auth.error,
 });
 
 export default connect(mapStateToProps)(PageNotFound);
