@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import faker from 'faker';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import classes from './Home.module.css';
@@ -10,7 +9,6 @@ const Home = (props) => {
 	const [mounted, setMounted] = useState(false);
 	const [name, setName] = useState('');
 	const [image, setImage] = useState(null);
-	const [state, setState] = useState('');
 	const [country, setCountry] = useState('');
 	const [age, setAge] = useState(0);
 	const [aboutMe, setAboutMe] = useState('');
@@ -45,17 +43,19 @@ const Home = (props) => {
 
 	const rejectHandler = () => {
 		console.log('rejected');
+		console.log('.accep', props.loadUser());
+		setChange((state) => !state);
 	};
 
 	const setDataIntoState = (userInfo) => {
 		console.log(userInfo);
-		const { name, image, state, country, age, aboutMe, gender } = userInfo;
+		const { name, image, country, age, aboutMe, gender } = userInfo;
 
-		console.log(name, image, state, country, age, aboutMe, gender);
+		console.log(name, image, country, age, aboutMe, gender);
 
 		console.log(image);
 		setName(name);
-		setState(state);
+
 		setCountry(country);
 		setImage(image);
 		setAboutMe(aboutMe);
@@ -72,7 +72,7 @@ const Home = (props) => {
 						<h2 className='text-white'>{name}</h2>
 						<h5 className='text-white'>{age}</h5>
 						<h5 className='text-white'>{gender}</h5>
-						<h6 className='text-white'>{`${state}, ${country}`}</h6>
+						<h6 className='text-white'>{` ${country}`}</h6>
 						<p>{aboutMe}</p>
 					</div>
 					<div className='d-flex justify-content-around'>
