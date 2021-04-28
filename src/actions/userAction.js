@@ -9,7 +9,7 @@ export const loadUser = () => async (dispatch) => {
 	try {
 		dispatch({ type: LOAD_USER_REQUEST });
 
-		const image = faker.image.people();
+		const image = faker.image.avatar();
 		const name = faker.name.firstName() + faker.name.lastName();
 		const state = faker.address.state();
 		const country = faker.address.country();

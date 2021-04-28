@@ -5,8 +5,6 @@ import { useHistory } from 'react-router-dom';
 import classes from './Home.module.css';
 import { loadUser } from '../../actions/userAction';
 
-const girlImage = faker.image.people();
-
 const Home = (props) => {
 	const history = useHistory();
 	const [mounted, setMounted] = useState(false);
@@ -25,33 +23,15 @@ const Home = (props) => {
 	}, [props.token]);
 
 	useEffect(() => {
-		const {
-			name,
-			image,
-			state,
-			country,
-			age,
-			aboutMe,
-			gender,
-		} = props.userInfo;
-
-		console.log(name, image, state, country, age, aboutMe, gender);
-
-		console.log(image);
-		setName(name);
-		setState(state);
-		setCountry(country);
-		setImage(image);
-		setAboutMe(aboutMe);
-		setAge(age);
-		setGender(gender);
 		console.log(props.userInfo);
-	}, [change]);
+		if (props.userInfo) {
+			setDataIntoState(props.userInfo);
+		}
+	}, [change, props.userInfo]);
 
 	if (mounted === false) {
-		console.log('hii');
+		props.loadUser();
 		if (props.token === null) {
-			console.log('login');
 			history.push('/login');
 			return null;
 		}
@@ -65,6 +45,22 @@ const Home = (props) => {
 
 	const rejectHandler = () => {
 		console.log('rejected');
+	};
+
+	const setDataIntoState = (userInfo) => {
+		console.log(userInfo);
+		const { name, image, state, country, age, aboutMe, gender } = userInfo;
+
+		console.log(name, image, state, country, age, aboutMe, gender);
+
+		console.log(image);
+		setName(name);
+		setState(state);
+		setCountry(country);
+		setImage(image);
+		setAboutMe(aboutMe);
+		setAge(age);
+		setGender(gender);
 	};
 
 	return (

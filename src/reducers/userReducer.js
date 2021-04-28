@@ -16,7 +16,7 @@ const userReducer = (state = initialState, action) => {
 		case LOAD_USER_REQUEST:
 			return {
 				...state,
-				userInfo: null,
+				loading: true,
 			};
 		case LOAD_USER_SUCCESS: {
 			return {
