@@ -15,6 +15,7 @@ export const loadUser = () => async (dispatch) => {
 		const country = faker.address.country();
 		const age = Math.floor(Math.random() * 20 + 18);
 		const aboutMe = faker.lorem.lines();
+		const gender = faker.name.gender();
 
 		const userInfo = {
 			image,
@@ -23,6 +24,7 @@ export const loadUser = () => async (dispatch) => {
 			country,
 			age,
 			aboutMe,
+			gender,
 		};
 
 		dispatch({ type: LOAD_USER_SUCCESS, payload: userInfo });

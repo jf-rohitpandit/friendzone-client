@@ -18,9 +18,9 @@ const initialState = {
 	error: null,
 };
 
-export default function (state = initialState, action) {
+const authReducer = (state = initialState, action) => {
 	console.log('authReducer', action);
-	console.log('reducer', loadToken());
+
 	switch (action.type) {
 		case USER_REGISTER_REQUEST: {
 			return {
@@ -73,4 +73,6 @@ export default function (state = initialState, action) {
 		default:
 			return state;
 	}
-}
+};
+
+export default authReducer;

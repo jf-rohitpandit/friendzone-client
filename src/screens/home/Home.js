@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import faker from 'faker';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import gilr1 from './girl1.jpg';
 import classes from './Home.module.css';
 import { loadUser } from '../../actions/userAction';
 
@@ -11,11 +10,43 @@ const girlImage = faker.image.people();
 const Home = (props) => {
 	const history = useHistory();
 	const [mounted, setMounted] = useState(false);
+	const [name, setName] = useState('');
+	const [image, setImage] = useState(null);
+	const [state, setState] = useState('');
+	const [country, setCountry] = useState('');
+	const [age, setAge] = useState(0);
+	const [aboutMe, setAboutMe] = useState('');
+	const [gender, setGender] = useState('');
+	const [change, setChange] = useState(1);
 
 	//protected route
 	useEffect(() => {
 		setMounted(true);
 	}, [props.token]);
+
+	useEffect(() => {
+		const {
+			name,
+			image,
+			state,
+			country,
+			age,
+			aboutMe,
+			gender,
+		} = props.userInfo;
+
+		console.log(name, image, state, country, age, aboutMe, gender);
+
+		console.log(image);
+		setName(name);
+		setState(state);
+		setCountry(country);
+		setImage(image);
+		setAboutMe(aboutMe);
+		setAge(age);
+		setGender(gender);
+		console.log(props.userInfo);
+	}, [change]);
 
 	if (mounted === false) {
 		console.log('hii');
@@ -28,7 +59,8 @@ const Home = (props) => {
 
 	const acceptHandler = () => {
 		console.log('accepted');
-		console.log(props.loadUser());
+		console.log('.accep', props.loadUser());
+		setChange((state) => !state);
 	};
 
 	const rejectHandler = () => {
@@ -38,20 +70,14 @@ const Home = (props) => {
 	return (
 		<div className='container'>
 			<div className='d-flex flex-row  rounded text-white bg-primary m-4'>
-				<img src={girlImage} alt='' className={classes.avtar} />
+				<img src={image} alt='' className={classes.avtar} />
 				<div className='d-flex flex-column justify-content-center p-3'>
 					<div className=''>
-						<h2 className='text-white'>
-							{`${faker.name.firstName()} ${faker.name.lastName()}`}
-						</h2>
-						<h5 className='text-white'>
-							{Math.floor(Math.random() * 20) + 15}
-						</h5>
-						<h5 className='text-white'>{faker.name.gender()}</h5>
-						<h6 className='text-white'>
-							{`${faker.address.state()}, ${faker.address.country()}`}
-						</h6>
-						<p>{faker.lorem.lines()}</p>
+						<h2 className='text-white'>{name}</h2>
+						<h5 className='text-white'>{age}</h5>
+						<h5 className='text-white'>{gender}</h5>
+						<h6 className='text-white'>{`${state}, ${country}`}</h6>
+						<p>{aboutMe}</p>
 					</div>
 					<div className='d-flex justify-content-around'>
 						<button className='btn btn-success' onClick={acceptHandler}>
@@ -72,7 +98,7 @@ const mapStateToProps = (state) => ({
 	token: state.auth.token,
 	error: state.auth.error,
 	userLoading: state.user.loading,
-	userUserInfo: state.user.userInfo,
+	userInfo: state.user.userInfo,
 	userError: state.user.error,
 });
 

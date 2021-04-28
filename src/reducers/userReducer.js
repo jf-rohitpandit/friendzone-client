@@ -11,6 +11,7 @@ const initialState = {
 };
 
 const userReducer = (state = initialState, action) => {
+	console.log('userReducer', action);
 	switch (action.type) {
 		case LOAD_USER_REQUEST:
 			return {
