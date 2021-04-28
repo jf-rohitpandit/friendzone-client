@@ -28,7 +28,7 @@ const Login = (props) => {
 	if (mounted === false) {
 		if (props.token !== null) {
 			history.push('/');
-			return;
+			return null;
 		}
 	}
 

@@ -7,6 +7,7 @@ import classes from './Profile.module.css';
 const Profile = (props) => {
 	const history = useHistory();
 
+	const [mounted, setMounted] = useState(false);
 	const [name, setName] = useState('Full Name');
 	const [gender, setGender] = useState('Male');
 	const [state, setState] = useState('Delhi');
@@ -17,12 +18,15 @@ const Profile = (props) => {
 
 	//protected route
 	useEffect(() => {
-		console.log('protected route');
+		setMounted(true);
+	}, [props.token]);
+
+	if (mounted === false) {
 		if (props.token === null) {
 			history.push('/login');
-			return;
+			return null;
 		}
-	}, [props.token]);
+	}
 
 	const onSubmitHandler = (e) => {
 		e.preventDefault();

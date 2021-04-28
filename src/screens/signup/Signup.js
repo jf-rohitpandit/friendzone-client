@@ -15,12 +15,6 @@ const Signup = (props) => {
 	//protected route
 	useEffect(() => {
 		setMounted(true);
-		console.log('protected route');
-		console.log('In the useEffect of signup route');
-		if (props.token) {
-			history.push('/');
-			return;
-		}
 	}, [props.token]);
 
 	//useEffect to show the error in the ui
@@ -31,7 +25,7 @@ const Signup = (props) => {
 	if (mounted === false) {
 		if (props.token !== null) {
 			history.push('/');
-			return;
+			return null;
 		}
 	}
 
