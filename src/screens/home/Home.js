@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import gilr1 from './girl1.jpg';
 import classes from './Home.module.css';
+import { loadUser } from '../../actions/userAction';
 
 const girlImage = faker.image.people();
 
@@ -27,6 +28,7 @@ const Home = (props) => {
 
 	const acceptHandler = () => {
 		console.log('accepted');
+		console.log(props.loadUser());
 	};
 
 	const rejectHandler = () => {
@@ -69,6 +71,13 @@ const mapStateToProps = (state) => ({
 	loading: state.auth.loading,
 	token: state.auth.token,
 	error: state.auth.error,
+	userLoading: state.user.loading,
+	userUserInfo: state.user.userInfo,
+	userError: state.user.error,
 });
 
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = (dispatch) => ({
+	loadUser: () => dispatch(loadUser()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
