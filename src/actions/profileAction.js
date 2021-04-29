@@ -6,12 +6,19 @@ import {
 } from '../constants/profileConstants';
 
 export const updateProfile = (userInfo) => async (dispatch) => {
+	console.log('updateProfile');
 	try {
-		dispatch({ type: UPDATE_PROFILE_REQUEST });
+		dispatch({
+			type: UPDATE_PROFILE_REQUEST,
+		});
+		console.log('Hi in the  updateProfile');
 
 		//axios logic
 
-		dispatch({ type: UPDATE_PROFILE_SUCCESS });
+		dispatch({
+			type: UPDATE_PROFILE_SUCCESS,
+			payload: 'Profile updated successfully',
+		});
 	} catch (error) {
 		dispatch({ type: UPDATE_PROFILE_FAIL, error: error });
 	}
