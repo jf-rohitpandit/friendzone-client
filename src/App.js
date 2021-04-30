@@ -1,7 +1,7 @@
 import React from 'react';
+import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from './store.js';
+import { connect } from 'react-redux';
 import Navbar from './components/navbar/Navbar';
 import Home from './screens/home/Home';
 import Chat from './screens/chat/Chat';
@@ -14,39 +14,44 @@ import PageNotFound from './screens/pageNotFound/PageNotFound';
 import './bootstrap.min.css';
 import './App.css';
 
-function App() {
+function App(props) {
+	//setting the header for authentication as token
+	axios.defaults.headers.common['Authorization'] = props.token;
+
 	return (
-		<Provider store={store}>
-			<div className='App'>
-				<Router>
-					<Navbar />
-					<Switch>
-						<Route exact path='/'>
-							<Home />
-						</Route>
-						<Route exact path='/profile'>
-							<Profile />
-						</Route>
-						<Route exact path='/chat'>
-							<Chat />
-						</Route>
-						<Route exact path='/friends'>
-							<Friends />
-						</Route>
-						<Route exact path='/login'>
-							<Login />
-						</Route>
-						<Route exact path='/signup'>
-							<Signup />
-						</Route>
-						<Route path='/*'>
-							<PageNotFound />
-						</Route>
-					</Switch>
-				</Router>
-			</div>
-		</Provider>
+		<div className='App'>
+			<Router>
+				<Navbar />
+				<Switch>
+					<Route exact path='/'>
+						<Home />
+					</Route>
+					<Route exact path='/profile'>
+						<Profile />
+					</Route>
+					<Route exact path='/chat'>
+						<Chat />
+					</Route>
+					<Route exact path='/friends'>
+						<Friends />
+					</Route>
+					<Route exact path='/login'>
+						<Login />
+					</Route>
+					<Route exact path='/signup'>
+						<Signup />
+					</Route>
+					<Route path='/*'>
+						<PageNotFound />
+					</Route>
+				</Switch>
+			</Router>
+		</div>
 	);
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+	token: state.auth.token,
+});
+
+export default connect(mapStateToProps)(App);

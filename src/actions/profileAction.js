@@ -6,7 +6,7 @@ import {
 } from '../constants/profileConstants';
 
 export const updateProfile = (userInfo) => async (dispatch) => {
-	console.log('updateProfile');
+	console.log('updateProfile', userInfo);
 	try {
 		dispatch({
 			type: UPDATE_PROFILE_REQUEST,

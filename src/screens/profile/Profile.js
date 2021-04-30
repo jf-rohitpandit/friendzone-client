@@ -14,7 +14,7 @@ const Profile = (props) => {
 	const [gender, setGender] = useState('');
 	const [dob, setDob] = useState(null);
 	const [country, setCountry] = useState('');
-	const [info, setInfo] = useState('');
+	const [aboutMe, setaboutMe] = useState('');
 
 	//protected route
 	useEffect(() => {
@@ -40,9 +40,12 @@ const Profile = (props) => {
 			name,
 			avtar,
 			country,
+			aboutMe,
+			gender,
+			dob,
 		};
 
-		props.updateProfile();
+		props.updateProfile(userInfo);
 		console.log('after save');
 	};
 
@@ -115,9 +118,9 @@ const Profile = (props) => {
 						<textarea
 							rows='5'
 							className='form-control-plaintext pl-1 pr-1'
-							value={info}
-							placeholder={info.length > 0 ? '' : 'Write about yourself....'}
-							onChange={(e) => setInfo(e.target.value)}
+							value={aboutMe}
+							placeholder={aboutMe.length > 0 ? '' : 'Write about yourself....'}
+							onChange={(e) => setaboutMe(e.target.value)}
 						/>
 					</div>
 					<label htmlFor='staticEmail' className='col-sm-2 col-form-label'>
@@ -151,7 +154,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	updateProfile: () => dispatch(updateProfile()),
+	updateProfile: (userInfo) => dispatch(updateProfile(userInfo)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
