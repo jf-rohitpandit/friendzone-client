@@ -19,10 +19,10 @@ const Navbar = (props) => {
 	};
 
 	return (
-		<nav class='navbar navbar-expand-lg navbar-dark bg-primary d-flex justify-content-between'>
+		<nav className='navbar navbar-expand-lg navbar-dark bg-primary d-flex justify-content-between'>
 			<NavLink exact to='/' className='navbar-brand'>
 				{/* <img src='' alt='logo' /> */}
-				<i class='fas fa-fire fa-2x'></i>
+				<i className='fas fa-fire fa-2x'></i>
 			</NavLink>
 
 			<ul className='navbar-nav'>

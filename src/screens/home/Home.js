@@ -21,14 +21,15 @@ const Home = (props) => {
 	}, [props.token]);
 
 	useEffect(() => {
-		console.log(props.userInfo);
-		if (props.userInfo) {
+		if (props.userInfo && props.token) {
 			setDataIntoState(props.userInfo);
 		}
 	}, [change, props.userInfo]);
 
 	if (mounted === false) {
-		props.loadUser();
+		if (props.token) {
+			props.loadUser();
+		}
 		if (props.token === null) {
 			history.push('/login');
 			return null;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classes from './PageNotFound.module.css';
@@ -7,14 +7,19 @@ import { Link } from 'react-router-dom';
 const PageNotFound = (props) => {
 	const history = useHistory();
 
+	const [mounted, setMounted] = useState(false);
+
 	//protected route
 	useEffect(() => {
-		console.log('protected route');
+		setMounted(true);
+	}, [props.token]);
+
+	if (mounted === false) {
 		if (props.token === null) {
 			history.push('/login');
-			return;
+			return null;
 		}
-	}, [props.token]);
+	}
 
 	return (
 		<div className={`container d-flex flex-column  ${classes.looks} `}>
@@ -28,9 +33,9 @@ const PageNotFound = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-	loading: state.user.loading,
-	token: state.user.token,
-	error: state.user.error,
+	loading: state.auth.loading,
+	token: state.auth.token,
+	error: state.auth.error,
 });
 
 export default connect(mapStateToProps)(PageNotFound);

@@ -5,7 +5,6 @@ import rootReducer from './reducers/index.js';
 import { loadToken } from './localStorage';
 
 const savedToken = loadToken();
-console.log('saved token', savedToken);
 
 const initialState = {
 	auth: {

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import girl2 from '../home/girl4.jpg';
@@ -7,14 +7,19 @@ import classes from './Friends.module.css';
 const Friends = (props) => {
 	const history = useHistory();
 
+	const [mounted, setMounted] = useState(false);
+
 	//protected route
 	useEffect(() => {
-		console.log('protected route');
+		setMounted(true);
+	}, [props.token]);
+
+	if (mounted === false) {
 		if (props.token === null) {
 			history.push('/login');
-			return;
+			return null;
 		}
-	}, [props.token]);
+	}
 
 	return (
 		<div className='container'>
