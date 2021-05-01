@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getProfile, updateProfile } from '../../actions/profileAction';
-import girl from '../home/girl1.jpg';
 import classes from './Profile.module.css';
 
 const Profile = (props) => {
 	const history = useHistory();
 
+	const [imgPrev, setImgPrev] = useState('');
 	const [avtar, setAvtar] = useState('');
 	const [mounted, setMounted] = useState(false);
 	const [name, setName] = useState('');
@@ -32,13 +32,18 @@ const Profile = (props) => {
 			setGender(props.user.gender);
 			setCountry(props.user.country);
 			setaboutMe(props.user.aboutMe);
+			setAvtar(props.user.avtar);
 			console.log(props.user.name);
 		}
 	}, [props.user]);
 
 	useEffect(() => {
-		showImage(avtar);
-	}, [avtar]);
+		if (imgPrev === '') {
+			showImage(avtar);
+		} else {
+			previewImage(imgPrev);
+		}
+	}, [avtar, imgPrev]);
 
 	if (mounted === false) {
 		if (props.token === null) {
@@ -53,7 +58,7 @@ const Profile = (props) => {
 
 		const userInfo = {
 			name,
-			avtar,
+			avtar: imgPrev,
 			country,
 			aboutMe,
 			gender,
@@ -66,7 +71,19 @@ const Profile = (props) => {
 
 	const showImage = (photoFile) => {
 		if (photoFile === '') return;
-		const img = document.getElementsByTagName('img')[0];
+		const arrayBufferView = new Uint8Array(photoFile.data);
+		const img = document.getElementById('avtar');
+		img.src = URL.createObjectURL(
+			new Blob([arrayBufferView], { type: MimeType })
+		);
+		img.onload = () => {
+			URL.revokeObjectURL(img.src);
+		};
+	};
+
+	const previewImage = (photoFile) => {
+		if (photoFile === '') return;
+		const img = document.getElementById('preview');
 		img.src = URL.createObjectURL(photoFile);
 		img.onload = () => {
 			URL.revokeObjectURL(img.src);
@@ -145,8 +162,20 @@ const Profile = (props) => {
 						Avtar:
 					</label>
 					<div className='col-sm-10 d-flex align-items-center'>
-						{avtar ? (
-							<img src={avtar} alt='avtar' className={classes.avtar} />
+						{imgPrev !== '' ? (
+							<img
+								src={imgPrev}
+								alt='avtar'
+								id='preview'
+								className={classes.avtar}
+							/>
+						) : avtar !== '' ? (
+							<img
+								src={avtar}
+								alt='avtar'
+								id='avtar'
+								className={classes.avtar}
+							/>
 						) : (
 							<span>No uploaded photo</span>
 						)}
@@ -154,7 +183,8 @@ const Profile = (props) => {
 							type='file'
 							className='form-control-file pl-1 pr-1'
 							onChange={(e) => {
-								setAvtar(e.target.files[0]);
+								setImgPrev(e.target.files[0]);
+								previewImage(imgPrev);
 							}}
 						/>
 					</div>
