@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import classes from './Home.module.css';
 import { loadUser } from '../../actions/userAction';
+import { addFriend } from '../../actions/friendAction';
 
 const Home = (props) => {
 	const history = useHistory();
+	const [id, setId] = useState('');
 	const [mounted, setMounted] = useState(false);
 	const [name, setName] = useState('');
 	const [image, setImage] = useState(null);
@@ -38,6 +40,7 @@ const Home = (props) => {
 
 	const acceptHandler = () => {
 		console.log('accepted');
+		props.addFriend(id);
 		console.log('.accep', props.loadUser());
 		setChange((state) => !state);
 	};
@@ -50,13 +53,13 @@ const Home = (props) => {
 
 	const setDataIntoState = (userInfo) => {
 		console.log(userInfo);
-		const { name, image, country, age, aboutMe, gender } = userInfo;
+		const { name, image, country, age, aboutMe, gender, id } = userInfo;
 
 		console.log(name, image, country, age, aboutMe, gender);
 
 		console.log(image);
 		setName(name);
-
+		setId(id);
 		setCountry(country);
 		setImage(image);
 		setAboutMe(aboutMe);
@@ -101,6 +104,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
 	loadUser: () => dispatch(loadUser()),
+	addFriend: (friendId) => dispatch(addFriend(friendId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
