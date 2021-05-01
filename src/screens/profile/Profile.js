@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { updateProfile } from '../../actions/profileAction';
+import { getProfile, updateProfile } from '../../actions/profileAction';
 import girl from '../home/girl1.jpg';
 import classes from './Profile.module.css';
 
 const Profile = (props) => {
 	const history = useHistory();
 
-	const [avtar, setAvtar] = useState(null);
+	const [avtar, setAvtar] = useState('');
 	const [mounted, setMounted] = useState(false);
 	const [name, setName] = useState('');
 	const [gender, setGender] = useState('');
-	const [dob, setDob] = useState(null);
+	const [dob, setDob] = useState('');
 	const [country, setCountry] = useState('');
 	const [aboutMe, setaboutMe] = useState('');
 
@@ -20,6 +20,21 @@ const Profile = (props) => {
 	useEffect(() => {
 		setMounted(true);
 	}, [props.token]);
+
+	useEffect(() => {
+		if (props.updated || !mounted) props.getProfile();
+	}, []);
+
+	useEffect(() => {
+		if (props.successProfile) {
+			setName(props.user.name);
+			setDob(props.user.dob.split('T')[0]);
+			setGender(props.user.gender);
+			setCountry(props.user.country);
+			setaboutMe(props.user.aboutMe);
+			console.log(props.user.name);
+		}
+	}, [props.user]);
 
 	useEffect(() => {
 		showImage(avtar);
@@ -50,7 +65,7 @@ const Profile = (props) => {
 	};
 
 	const showImage = (photoFile) => {
-		if (photoFile === null) return;
+		if (photoFile === '') return;
 		const img = document.getElementsByTagName('img')[0];
 		img.src = URL.createObjectURL(photoFile);
 		img.onload = () => {
@@ -63,7 +78,10 @@ const Profile = (props) => {
 			<h2>My Profile</h2>
 			<hr />
 			<div className=''>
-				<form onSubmit={onSubmitHandler} className='form-group row'>
+				<form
+					onSubmit={onSubmitHandler}
+					className='form-group row'
+					encType='multipart/form-data'>
 					<label htmlFor='staticEmail' className='col-sm-2 col-form-label'>
 						Full Name:
 					</label>
@@ -72,7 +90,7 @@ const Profile = (props) => {
 							type='text'
 							className='form-control-plaintext pl-1 pr-1'
 							value={name}
-							placeholder={name.length > 0 ? '' : 'Enter Your name'}
+							placeholder={name ? '' : 'Enter Your name'}
 							onChange={(e) => setName(e.target.value)}
 						/>
 					</div>
@@ -84,7 +102,7 @@ const Profile = (props) => {
 							type='text'
 							className='form-control-plaintext pl-1 pr-1'
 							value={gender}
-							placeholder={gender.length > 0 ? '' : 'Enter Your Gender'}
+							placeholder={gender ? '' : 'Enter Your Gender'}
 							onChange={(e) => setGender(e.target.value)}
 						/>
 					</div>
@@ -107,7 +125,7 @@ const Profile = (props) => {
 							type='text'
 							className='form-control-plaintext pl-1 pr-1'
 							value={country}
-							placeholder={country.length > 0 ? '' : 'Enter Your country'}
+							placeholder={country ? '' : 'Enter Your country'}
 							onChange={(e) => setCountry(e.target.value)}
 						/>
 					</div>
@@ -119,7 +137,7 @@ const Profile = (props) => {
 							rows='5'
 							className='form-control-plaintext pl-1 pr-1'
 							value={aboutMe}
-							placeholder={aboutMe.length > 0 ? '' : 'Write about yourself....'}
+							placeholder={aboutMe ? '' : 'Write about yourself....'}
 							onChange={(e) => setaboutMe(e.target.value)}
 						/>
 					</div>
@@ -151,10 +169,16 @@ const mapStateToProps = (state) => ({
 	loading: state.auth.loading,
 	token: state.auth.token,
 	error: state.auth.error,
+	updated: state.profile.updated,
+	loadingProfile: state.profile.loading,
+	successProfile: state.profile.success,
+	errorProfile: state.profile.error,
+	user: state.profile.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
 	updateProfile: (userInfo) => dispatch(updateProfile(userInfo)),
+	getProfile: () => dispatch(getProfile()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

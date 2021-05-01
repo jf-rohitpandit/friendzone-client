@@ -2,31 +2,59 @@ import {
 	UPDATE_PROFILE_FAIL,
 	UPDATE_PROFILE_REQUEST,
 	UPDATE_PROFILE_SUCCESS,
+	GET_PROFILE_FAIL,
+	GET_PROFILE_REQUEST,
+	GET_PROFILE_SUCCESS,
 } from '../constants/profileConstants';
 
 const initialState = {
-	success: null,
+	updated: false,
+	success: false,
 	error: null,
-	loading: null,
+	loading: false,
+	user: null,
 };
 
 const profileReducer = (state = initialState, action) => {
-	console.log('profileReducer', state, action);
 	switch (action.type) {
 		case UPDATE_PROFILE_REQUEST: {
 			return {
 				...state,
 				loading: true,
+				updated: false,
 			};
 		}
 		case UPDATE_PROFILE_SUCCESS: {
 			return {
 				...state,
 				loading: false,
-				success: action.payload,
+				updated: true,
 			};
 		}
 		case UPDATE_PROFILE_FAIL: {
+			return {
+				...state,
+				loading: false,
+				updated: false,
+				error: action.error,
+			};
+		}
+
+		case GET_PROFILE_REQUEST: {
+			return {
+				...state,
+				loading: true,
+			};
+		}
+		case GET_PROFILE_SUCCESS: {
+			return {
+				...state,
+				loading: false,
+				success: true,
+				user: action.payload,
+			};
+		}
+		case GET_PROFILE_FAIL: {
 			return {
 				...state,
 				loading: false,

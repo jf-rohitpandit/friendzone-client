@@ -13,17 +13,12 @@ import { saveToken } from '../localStorage';
 
 export const registerUser = (email, password) => async (dispatch) => {
 	try {
-		console.log('hi in the registerUser action creater');
 		dispatch({ type: USER_REGISTER_REQUEST });
-		console.log('user register request');
-		console.log(USER_REGISTER_REQUEST);
 
 		const result = await axios.post('http://localhost:5000/auth/signup', {
 			email,
 			password,
 		});
-
-		console.log('authAction', result);
 
 		dispatch({
 			type: USER_REGISTER_SUCCESS,
@@ -31,7 +26,6 @@ export const registerUser = (email, password) => async (dispatch) => {
 		});
 		saveToken(result.data.token);
 	} catch (error) {
-		console.log('error in registerAction ', error.response.data.message);
 		dispatch({ type: USER_REGISTER_FAIL, error: error.response.data.message });
 		setTimeout(() => {
 			dispatch({ type: SET_ERROR_NULL });
@@ -42,7 +36,6 @@ export const registerUser = (email, password) => async (dispatch) => {
 export const loginUser = (email, password) => async (dispatch) => {
 	try {
 		dispatch({ type: USER_LOGIN_REQUEST });
-		console.log('login');
 
 		const result = await axios.post('http://localhost:5000/auth/login', {
 			email,
@@ -52,7 +45,6 @@ export const loginUser = (email, password) => async (dispatch) => {
 		dispatch({ type: USER_LOGIN_SUCCESS, payload: result.data.token });
 		saveToken(result.data.token);
 	} catch (error) {
-		console.log('error in loginAction ', error);
 		dispatch({
 			type: USER_LOGIN_FAIL,
 			error: error.response.data.message,

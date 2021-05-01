@@ -16,7 +16,7 @@ import './App.css';
 
 function App(props) {
 	//setting the header for authentication as token
-	axios.defaults.headers.common['Authorization'] = props.token;
+	axios.defaults.headers.common['Authorization'] = `Bearer ${props.token}`;
 
 	return (
 		<div className='App'>
