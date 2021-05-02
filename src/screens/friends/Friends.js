@@ -38,7 +38,12 @@ const Friends = (props) => {
 						props.friendList.map((friend) => (
 							<li className='list-group-item' key={friend.id}>
 								<div className='d-flex flex-row'>
-									<img src={girl2} alt='' className={classes.avtar} />
+									<img
+										src={`data:${friend.photo.mimetype};base64,${Buffer.from(
+											friend.photo.data
+										).toString('base64')}`}
+										className={classes.avtar}
+									/>
 									<h6 className='align-self-center pl-2'>{friend.name}</h6>
 								</div>
 							</li>
