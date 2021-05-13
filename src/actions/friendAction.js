@@ -16,7 +16,7 @@ export const addFriend = (friendId) => async (dispatch) => {
 		dispatch({ type: ADD_FRIEND_REQUEST });
 
 		//axios logic
-		await axios.put('https://upbeat-jepsen-ece2e7.netlify.app/friend', {
+		await axios.put('https://sleepy-basin-66163.herokuapp.com/friend', {
 			friendId,
 		});
 
@@ -31,7 +31,7 @@ export const getFriend = () => async (dispatch) => {
 		dispatch({ type: GET_FRIEND_REQUEST });
 
 		const list = await axios.get(
-			'https://upbeat-jepsen-ece2e7.netlify.app/friend'
+			'https://sleepy-basin-66163.herokuapp.com/friend'
 		);
 		console.log(list.data);
 
@@ -47,7 +47,7 @@ export const getSingleFriend = (id) => async (dispatch) => {
 
 		//axios logic
 		const result = await axios.get(
-			`https://upbeat-jepsen-ece2e7.netlify.app/friend/${id}`
+			`https://sleepy-basin-66163.herokuapp.com/friend/${id}`
 		);
 
 		dispatch({ type: GET_SINGLE_FRIEND_SUCCESS, payload: result.data.user });

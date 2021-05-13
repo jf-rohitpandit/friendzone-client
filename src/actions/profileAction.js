@@ -24,7 +24,7 @@ export const updateProfile = (userInfo) => async (dispatch) => {
 		formdata.append('aboutMe', userInfo.aboutMe);
 
 		const result = await axios.put(
-			'https://upbeat-jepsen-ece2e7.netlify.app/profile',
+			'https://sleepy-basin-66163.herokuapp.com/profile',
 			formdata
 		);
 
@@ -46,7 +46,7 @@ export const getProfile = () => async (dispatch) => {
 		dispatch({ type: GET_PROFILE_REQUEST });
 
 		const user = await axios.get(
-			'https://upbeat-jepsen-ece2e7.netlify.app/profile'
+			'https://sleepy-basin-66163.herokuapp.com/profile'
 		);
 
 		dispatch({ type: GET_PROFILE_SUCCESS, payload: user.data.user });

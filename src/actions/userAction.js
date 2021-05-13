@@ -10,7 +10,7 @@ export const loadUser = () => async (dispatch) => {
 		dispatch({ type: LOAD_USER_REQUEST });
 
 		const result = await axios.get(
-			'https://upbeat-jepsen-ece2e7.netlify.app/home'
+			'https://sleepy-basin-66163.herokuapp.com/home'
 		);
 
 		// const userInfo = {
