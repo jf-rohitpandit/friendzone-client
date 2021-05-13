@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import girl2 from '../home/girl4.jpg';
 import classes from './Friends.module.css';
 import { getFriend } from '../../actions/friendAction';
+import { Fragment } from 'react';
+import Spinner from '../../components/UI/spinner/Spinner';
 
 const Friends = (props) => {
 	const history = useHistory();
@@ -19,6 +20,7 @@ const Friends = (props) => {
 		if (!mounted) {
 			props.getFriend();
 		}
+		// eslint-disable-next-line
 	}, []);
 
 	if (mounted === false) {
@@ -28,29 +30,46 @@ const Friends = (props) => {
 		}
 	}
 
+	const openChat = (id) => {
+		history.push(`/chat/${id}`);
+		return null;
+	};
+
 	return (
-		<div className='container'>
-			<h2>My Friends</h2>
-			<hr />
-			<div className=''>
-				<ul className='list-group'>
-					{props.friendList &&
-						props.friendList.map((friend) => (
-							<li className='list-group-item' key={friend.id}>
-								<div className='d-flex flex-row'>
-									<img
-										src={`data:${friend.photo.mimetype};base64,${Buffer.from(
-											friend.photo.data
-										).toString('base64')}`}
-										className={classes.avtar}
-									/>
-									<h6 className='align-self-center pl-2'>{friend.name}</h6>
-								</div>
-							</li>
-						))}
-				</ul>
+		<Fragment>
+			{props.loadingFriend && <Spinner />}
+			<div className='container'>
+				<h2>My Friends</h2>
+				<hr />
+				<div className=''>
+					<ul className='list-group'>
+						{props.friendList &&
+							props.friendList.map((friend) => (
+								<li
+									className='list-group-item'
+									key={friend.id}
+									onClick={() => openChat(friend.id)}>
+									<div className='d-flex flex-row'>
+										{friend.photo != null ? (
+											<img
+												src={`data:image/jpg;base64,${Buffer.from(
+													friend.photo.data
+												).toString('base64')}`}
+												className={classes.avtar}
+												alt='avtar'
+											/>
+										) : (
+											<i className='fas fa-user fa-2x'></i>
+										)}
+
+										<h6 className='align-self-center pl-2'>{friend.name}</h6>
+									</div>
+								</li>
+							))}
+					</ul>
+				</div>
 			</div>
-		</div>
+		</Fragment>
 	);
 };
 

@@ -5,6 +5,7 @@ import {
 	GET_PROFILE_FAIL,
 	GET_PROFILE_REQUEST,
 	GET_PROFILE_SUCCESS,
+	SET_UPDATE_FALSE,
 } from '../constants/profileConstants';
 
 const initialState = {
@@ -29,6 +30,13 @@ const profileReducer = (state = initialState, action) => {
 				...state,
 				loading: false,
 				updated: true,
+				user: action.payload,
+			};
+		}
+		case SET_UPDATE_FALSE: {
+			return {
+				...state,
+				updated: false,
 			};
 		}
 		case UPDATE_PROFILE_FAIL: {
@@ -61,6 +69,7 @@ const profileReducer = (state = initialState, action) => {
 				error: action.error,
 			};
 		}
+
 		default: {
 			return state;
 		}

@@ -29,7 +29,7 @@ function App(props) {
 					<Route exact path='/profile'>
 						<Profile />
 					</Route>
-					<Route exact path='/chat'>
+					<Route exact path='/chat/:id'>
 						<Chat />
 					</Route>
 					<Route exact path='/friends'>

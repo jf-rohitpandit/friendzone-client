@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authAction';
-import PropTypes from 'prop-types';
 import { deleteToken } from '../../localStorage';
 
 const Navbar = (props) => {
