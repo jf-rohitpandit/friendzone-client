@@ -32,13 +32,13 @@ const loadChat = (sendTo) => {
 
 const Chat = (props) => {
 	const history = useHistory();
+
+	const { id } = useParams();
+	const sendTo = id;
 	let conversation = loadChat(sendTo);
 
 	const [text, setText] = useState('');
 	const [chat, setChat] = useState(conversation);
-
-	const { id } = useParams();
-	const sendTo = id;
 
 	//function for settting the view into the last message
 	const setRef = useCallback((node) => {
