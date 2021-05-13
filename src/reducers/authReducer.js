@@ -8,9 +8,6 @@ import {
 	USER_REGISTER_SUCCESS,
 	SET_ERROR_NULL,
 } from '../constants/authConstants';
-import { loadToken } from '../localStorage';
-
-const savedToken = loadToken();
 
 const initialState = {
 	loading: false,

@@ -6,6 +6,7 @@ import {
 	GET_PROFILE_FAIL,
 	GET_PROFILE_REQUEST,
 	GET_PROFILE_SUCCESS,
+	SET_UPDATE_FALSE,
 } from '../constants/profileConstants';
 
 export const updateProfile = (userInfo) => async (dispatch) => {
@@ -22,11 +23,16 @@ export const updateProfile = (userInfo) => async (dispatch) => {
 		formdata.append('dob', userInfo.dob);
 		formdata.append('aboutMe', userInfo.aboutMe);
 
-		await axios.put('http://localhost:5000/profile', formdata);
+		const result = await axios.put('http://localhost:5000/profile', formdata);
 
 		dispatch({
 			type: UPDATE_PROFILE_SUCCESS,
+			payload: result.data.user,
 		});
+		setTimeout(() => {
+			console.log('setTime out ');
+			dispatch({ type: SET_UPDATE_FALSE });
+		}, 2000);
 	} catch (error) {
 		dispatch({ type: UPDATE_PROFILE_FAIL, error: error });
 	}
