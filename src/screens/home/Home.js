@@ -38,6 +38,7 @@ const Home = (props) => {
 
 	if (mounted === false) {
 		if (props.token === null) {
+			console.log('unauthorized request');
 			history.push('/login');
 			return null;
 		}

@@ -20,6 +20,27 @@ const Profile = (props) => {
 	const [country, setCountry] = useState('');
 	const [aboutMe, setaboutMe] = useState('');
 
+	const showImage = (photoFile) => {
+		if (photoFile === '') return;
+		const arrayBufferView = new Uint8Array(photoFile.data);
+		const img = document.getElementById('avtar');
+		img.src = URL.createObjectURL(
+			new Blob([arrayBufferView], { type: MimeType })
+		);
+		img.onload = () => {
+			URL.revokeObjectURL(img.src);
+		};
+	};
+
+	const previewImage = (photoFile) => {
+		if (photoFile === '') return;
+		const img = document.getElementById('preview');
+		img.src = URL.createObjectURL(photoFile);
+		img.onload = () => {
+			URL.revokeObjectURL(img.src);
+		};
+	};
+
 	//protected route
 	useEffect(() => {
 		setMounted(true);
@@ -90,27 +111,6 @@ const Profile = (props) => {
 
 		props.updateProfile(userInfo);
 		console.log('after save');
-	};
-
-	const showImage = (photoFile) => {
-		if (photoFile === '') return;
-		const arrayBufferView = new Uint8Array(photoFile.data);
-		const img = document.getElementById('avtar');
-		img.src = URL.createObjectURL(
-			new Blob([arrayBufferView], { type: MimeType })
-		);
-		img.onload = () => {
-			URL.revokeObjectURL(img.src);
-		};
-	};
-
-	const previewImage = (photoFile) => {
-		if (photoFile === '') return;
-		const img = document.getElementById('preview');
-		img.src = URL.createObjectURL(photoFile);
-		img.onload = () => {
-			URL.revokeObjectURL(img.src);
-		};
 	};
 
 	return (
