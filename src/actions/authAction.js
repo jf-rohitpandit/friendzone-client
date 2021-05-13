@@ -15,10 +15,13 @@ export const registerUser = (email, password) => async (dispatch) => {
 	try {
 		dispatch({ type: USER_REGISTER_REQUEST });
 
-		const result = await axios.post('http://localhost:5000/auth/signup', {
-			email,
-			password,
-		});
+		const result = await axios.post(
+			'https://upbeat-jepsen-ece2e7.netlify.app/auth/signup',
+			{
+				email,
+				password,
+			}
+		);
 
 		dispatch({
 			type: USER_REGISTER_SUCCESS,
@@ -37,10 +40,13 @@ export const loginUser = (email, password) => async (dispatch) => {
 	try {
 		dispatch({ type: USER_LOGIN_REQUEST });
 
-		const result = await axios.post('http://localhost:5000/auth/login', {
-			email,
-			password,
-		});
+		const result = await axios.post(
+			'https://upbeat-jepsen-ece2e7.netlify.app/auth/login',
+			{
+				email,
+				password,
+			}
+		);
 
 		dispatch({ type: USER_LOGIN_SUCCESS, payload: result.data.token });
 		saveToken(result.data.token);
