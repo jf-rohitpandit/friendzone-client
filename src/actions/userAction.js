@@ -13,15 +13,6 @@ export const loadUser = () => async (dispatch) => {
 			'https://sleepy-basin-66163.herokuapp.com/home'
 		);
 
-		// const userInfo = {
-		// 	image,
-		// 	name,
-		// 	country,
-		// 	age,
-		// 	aboutMe,
-		// 	gender,
-		// };
-
 		dispatch({ type: LOAD_USER_SUCCESS, payload: result.data.userInfo });
 	} catch (error) {
 		dispatch({ type: LOAD_USER_FAILURE, error: error });
