@@ -32,13 +32,13 @@ const loadChat = (sendTo) => {
 
 const Chat = (props) => {
 	const history = useHistory();
+	let conversation = loadChat(sendTo);
 
 	const [text, setText] = useState('');
 	const [chat, setChat] = useState(conversation);
 
 	const { id } = useParams();
 	const sendTo = id;
-	let conversation = loadChat(sendTo);
 
 	//function for settting the view into the last message
 	const setRef = useCallback((node) => {
@@ -85,6 +85,7 @@ const Chat = (props) => {
 			localStorage.setItem(`conversations[${sendTo}]`, JSON.stringify(chat));
 			setText('');
 		},
+		// eslint-disable-next-line
 		[chat]
 	);
 
