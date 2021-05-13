@@ -23,7 +23,10 @@ export const updateProfile = (userInfo) => async (dispatch) => {
 		formdata.append('dob', userInfo.dob);
 		formdata.append('aboutMe', userInfo.aboutMe);
 
-		const result = await axios.put('http://localhost:5000/profile', formdata);
+		const result = await axios.put(
+			'https://upbeat-jepsen-ece2e7.netlify.app/profile',
+			formdata
+		);
 
 		dispatch({
 			type: UPDATE_PROFILE_SUCCESS,
@@ -42,7 +45,9 @@ export const getProfile = () => async (dispatch) => {
 	try {
 		dispatch({ type: GET_PROFILE_REQUEST });
 
-		const user = await axios.get('http://localhost:5000/profile');
+		const user = await axios.get(
+			'https://upbeat-jepsen-ece2e7.netlify.app/profile'
+		);
 
 		dispatch({ type: GET_PROFILE_SUCCESS, payload: user.data.user });
 	} catch (error) {

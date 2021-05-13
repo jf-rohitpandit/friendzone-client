@@ -12,7 +12,7 @@ const token = loadToken();
 
 const sendTo = window.location.href.split('/')[4];
 
-const socket = io('http://localhost:5000', {
+const socket = io('https://sleepy-basin-66163.herokuapp.com', {
 	query: { token },
 });
 

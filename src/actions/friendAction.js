@@ -16,7 +16,9 @@ export const addFriend = (friendId) => async (dispatch) => {
 		dispatch({ type: ADD_FRIEND_REQUEST });
 
 		//axios logic
-		await axios.put('http://localhost:5000/friend', { friendId });
+		await axios.put('https://upbeat-jepsen-ece2e7.netlify.app/friend', {
+			friendId,
+		});
 
 		dispatch({ type: ADD_FRIEND_SUCCESS });
 	} catch (error) {
@@ -28,7 +30,9 @@ export const getFriend = () => async (dispatch) => {
 	try {
 		dispatch({ type: GET_FRIEND_REQUEST });
 
-		const list = await axios.get('http://localhost:5000/friend');
+		const list = await axios.get(
+			'https://upbeat-jepsen-ece2e7.netlify.app/friend'
+		);
 		console.log(list.data);
 
 		dispatch({ type: GET_FRIEND_SUCCESS, payload: list.data });
@@ -42,7 +46,9 @@ export const getSingleFriend = (id) => async (dispatch) => {
 		dispatch({ type: GET_SINGLE_FRIEND_REQUEST });
 
 		//axios logic
-		const result = await axios.get(`http://localhost:5000/friend/${id}`);
+		const result = await axios.get(
+			`https://upbeat-jepsen-ece2e7.netlify.app/friend/${id}`
+		);
 
 		dispatch({ type: GET_SINGLE_FRIEND_SUCCESS, payload: result.data.user });
 	} catch (error) {

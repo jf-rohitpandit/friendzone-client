@@ -9,7 +9,9 @@ export const loadUser = () => async (dispatch) => {
 	try {
 		dispatch({ type: LOAD_USER_REQUEST });
 
-		const result = await axios.get('http://localhost:5000/home');
+		const result = await axios.get(
+			'https://upbeat-jepsen-ece2e7.netlify.app/home'
+		);
 
 		// const userInfo = {
 		// 	image,
