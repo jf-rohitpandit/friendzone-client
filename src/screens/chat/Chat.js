@@ -10,8 +10,8 @@ import Spinner from '../../components/UI/spinner/Spinner';
 
 const token = loadToken();
 
-const sendTo = window.location.href.split('/')[4];
-console.log(sendTo);
+// const sendTo = window.location.href.split('/')[4];
+// console.log(sendTo);
 
 const socket = io('https://sleepy-basin-66163.herokuapp.com', {
 	query: { token },
@@ -27,6 +27,7 @@ const loadChat = (sendTo) => {
 	} else {
 		conversation = JSON.parse(localStorage.getItem(`conversations[${sendTo}]`));
 	}
+	return conversation;
 };
 
 const Chat = (props) => {
