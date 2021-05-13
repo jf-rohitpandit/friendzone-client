@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classes from './Chat.module.css';
 import { io } from 'socket.io-client';
@@ -11,26 +11,33 @@ import Spinner from '../../components/UI/spinner/Spinner';
 const token = loadToken();
 
 const sendTo = window.location.href.split('/')[4];
+console.log(sendTo);
 
 const socket = io('https://sleepy-basin-66163.herokuapp.com', {
 	query: { token },
 });
 
-//chat storing locally to the localstore
-let conversation = null;
-console.log(sendTo);
-if (!localStorage.getItem(`conversations[${sendTo}]`)) {
-	localStorage.setItem(`conversations[${sendTo}]`, []);
-	conversation = [];
-} else {
-	conversation = JSON.parse(localStorage.getItem(`conversations[${sendTo}]`));
-}
+const loadChat = (sendTo) => {
+	//chat storing locally to the localstore
+	let conversation = null;
+	console.log(sendTo);
+	if (!localStorage.getItem(`conversations[${sendTo}]`)) {
+		localStorage.setItem(`conversations[${sendTo}]`, []);
+		conversation = [];
+	} else {
+		conversation = JSON.parse(localStorage.getItem(`conversations[${sendTo}]`));
+	}
+};
 
 const Chat = (props) => {
 	const history = useHistory();
 
 	const [text, setText] = useState('');
 	const [chat, setChat] = useState(conversation);
+
+	const { id } = useParams();
+	const sendTo = id;
+	let conversation = loadChat(sendTo);
 
 	//function for settting the view into the last message
 	const setRef = useCallback((node) => {
