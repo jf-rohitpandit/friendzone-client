@@ -18,6 +18,7 @@ const Home = (props) => {
 	const [aboutMe, setAboutMe] = useState('');
 	const [gender, setGender] = useState('');
 	const [change, setChange] = useState(1);
+	const [noUser, setNoUser] = useState(false);
 
 	//protected route
 	useEffect(() => {
@@ -30,6 +31,9 @@ const Home = (props) => {
 	}, []);
 
 	useEffect(() => {
+		if (props.userInfo === null) {
+			setNoUser(true);
+		}
 		if (props.userInfo && props.token) {
 			setDataIntoState(props.userInfo);
 		}
@@ -91,32 +95,38 @@ const Home = (props) => {
 		<Fragment>
 			{props.userLoading && <Spinner />}
 			<div className='container'>
-				<div className='d-flex flex-row  rounded text-white bg-primary m-4'>
-					<img
-						src={`data:imgage/jpg;base64,${Buffer.from(image).toString(
-							'base64'
-						)}`}
-						alt=''
-						className={classes.avtar}
-					/>
-					<div className='d-flex flex-column justify-content-center p-3'>
-						<div className=''>
-							<h2 className='text-white'>{name}</h2>
-							<h5 className='text-white'>{age}</h5>
-							<h5 className='text-white'>{gender}</h5>
-							<h6 className='text-white'>{` ${country}`}</h6>
-							<p>{aboutMe}</p>
-						</div>
-						<div className='d-flex justify-content-around'>
-							<button className='btn btn-success' onClick={acceptHandler}>
-								Accept
-							</button>
-							<button className='btn btn-danger' onClick={rejectHandler}>
-								Reject
-							</button>
+				{noUser ? (
+					<h1>No new user</h1>
+				) : (
+					<div className='d-flex flex-row  rounded text-white bg-primary m-4'>
+						{image && (
+							<img
+								src={`data:imgage/jpg;base64,${Buffer.from(image).toString(
+									'base64'
+								)}`}
+								alt=''
+								className={classes.avtar}
+							/>
+						)}
+						<div className='d-flex flex-column justify-content-center p-3'>
+							<div className=''>
+								<h2 className='text-white'>{name}</h2>
+								<h5 className='text-white'>{age}</h5>
+								<h5 className='text-white'>{gender}</h5>
+								<h6 className='text-white'>{` ${country}`}</h6>
+								<p>{aboutMe}</p>
+							</div>
+							<div className='d-flex justify-content-around'>
+								<button className='btn btn-success' onClick={acceptHandler}>
+									Accept
+								</button>
+								<button className='btn btn-danger' onClick={rejectHandler}>
+									Reject
+								</button>
+							</div>
 						</div>
 					</div>
-				</div>
+				)}
 			</div>
 		</Fragment>
 	);

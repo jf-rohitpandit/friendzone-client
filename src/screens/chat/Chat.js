@@ -13,9 +13,9 @@ const token = loadToken();
 // const sendTo = window.location.href.split('/')[4];
 // console.log(sendTo);
 
-const socket = io('https://sleepy-basin-66163.herokuapp.com', {
-	query: { token },
-});
+// const socket = io('https://sleepy-basin-66163.herokuapp.com', {
+// 	query: { token },
+// });
 
 const loadChat = (sendTo) => {
 	//chat storing locally to the localstore
