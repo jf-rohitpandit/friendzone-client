@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classes from './Chat.module.css';
-import { io } from 'socket.io-client';
+// import { io } from 'socket.io-client';
 import { loadToken } from '../../localStorage';
 import { getSingleFriend } from '../../actions/friendAction';
 import { Fragment } from 'react';
@@ -92,17 +92,16 @@ const Chat = (props) => {
 	//function for handling the text sending form the user
 	const onMessageSend = (sendTo, text) => {
 		console.log(chat);
-		socket.emit('send-message', { sendTo: sendTo, text });
+		// socket.emit('send-message', { sendTo: sendTo, text });
 		addToChat({ sender: 'You', text });
 	};
 
 	useEffect(() => {
-		if (socket == null) {
-			return;
-		}
-		socket.on('recieve-message', addToChat);
-
-		return () => socket.off('recieve-message');
+		// if (socket == null) {
+		// 	return;
+		// }
+		// socket.on('recieve-message', addToChat);
+		// return () => socket.off('recieve-message');
 		// eslint-disable-next-line
 	}, [addToChat]);
 
