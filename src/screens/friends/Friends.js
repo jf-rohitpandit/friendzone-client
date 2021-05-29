@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classes from './Friends.module.css';
@@ -9,26 +9,11 @@ import Spinner from '../../components/UI/spinner/Spinner';
 const Friends = (props) => {
 	const history = useHistory();
 
-	const [mounted, setMounted] = useState(false);
-
-	//protected route
 	useEffect(() => {
-		setMounted(true);
-	}, [props.token]);
+		props.getFriend();
 
-	useEffect(() => {
-		if (!mounted) {
-			props.getFriend();
-		}
 		// eslint-disable-next-line
 	}, []);
-
-	if (mounted === false) {
-		if (props.token === null) {
-			history.push('/login');
-			return null;
-		}
-	}
 
 	const openChat = (id) => {
 		history.push(`/chat/${id}`);

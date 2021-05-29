@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import classes from './Home.module.css';
 import { loadUser } from '../../actions/userAction';
 import { addFriend } from '../../actions/friendAction';
@@ -8,9 +7,7 @@ import Spinner from '../../components/UI/spinner/Spinner';
 import { Fragment } from 'react';
 
 const Home = (props) => {
-	const history = useHistory();
 	const [id, setId] = useState('');
-	const [mounted, setMounted] = useState(false);
 	const [name, setName] = useState('');
 	const [image, setImage] = useState('');
 	const [country, setCountry] = useState('');
@@ -19,11 +16,6 @@ const Home = (props) => {
 	const [gender, setGender] = useState('');
 	const [change, setChange] = useState(1);
 	const [noUser, setNoUser] = useState(false);
-
-	//protected route
-	useEffect(() => {
-		setMounted(true);
-	}, [props.token]);
 
 	useEffect(() => {
 		props.loadUser();
@@ -39,14 +31,6 @@ const Home = (props) => {
 		}
 		// eslint-disable-next-line
 	}, [change, props.userInfo]);
-
-	if (mounted === false) {
-		if (props.token === null) {
-			console.log('unauthorized request');
-			history.push('/login');
-			return null;
-		}
-	}
 
 	const acceptHandler = () => {
 		console.log('accepted');

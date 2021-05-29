@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { getProfile, updateProfile } from '../../actions/profileAction';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,11 +8,8 @@ import Spinner from '../../components/UI/spinner/Spinner';
 import classes from './Profile.module.css';
 
 const Profile = (props) => {
-	const history = useHistory();
-
 	const [imgPrev, setImgPrev] = useState('');
 	const [avtar, setAvtar] = useState('');
-	const [mounted, setMounted] = useState(false);
 	const [name, setName] = useState('');
 	const [gender, setGender] = useState('');
 	const [dob, setDob] = useState('');
@@ -41,13 +37,8 @@ const Profile = (props) => {
 		};
 	};
 
-	//protected route
 	useEffect(() => {
-		setMounted(true);
-	}, [props.token]);
-
-	useEffect(() => {
-		if (props.updated || !mounted) props.getProfile();
+		props.getProfile();
 		// eslint-disable-next-line
 	}, []);
 
@@ -88,13 +79,6 @@ const Profile = (props) => {
 			previewImage(imgPrev);
 		}
 	}, [avtar, imgPrev]);
-
-	if (mounted === false) {
-		if (props.token === null) {
-			history.push('/login');
-			return null;
-		}
-	}
 
 	const onSubmitHandler = (e) => {
 		e.preventDefault();

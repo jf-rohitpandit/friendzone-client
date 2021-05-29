@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
 import Navbar from './components/navbar/Navbar';
 import Home from './screens/home/Home';
 import Chat from './screens/chat/Chat';
@@ -23,27 +24,14 @@ function App(props) {
 			<Router>
 				<Navbar />
 				<Switch>
-					<Route exact path='/'>
-						<Home />
-					</Route>
-					<Route exact path='/profile'>
-						<Profile />
-					</Route>
-					<Route exact path='/chat/:id'>
-						<Chat />
-					</Route>
-					<Route exact path='/friends'>
-						<Friends />
-					</Route>
-					<Route exact path='/login'>
-						<Login />
-					</Route>
-					<Route exact path='/signup'>
-						<Signup />
-					</Route>
-					<Route path='/*'>
-						<PageNotFound />
-					</Route>
+					<ProtectedRoute exact path='/' component={Home} />
+					<ProtectedRoute exact path='/profile' component={Profile} />
+					<ProtectedRoute exact path='/chat/:id' component={Chat} />
+					<ProtectedRoute exact path='/friends' component={Friends} />
+					<ProtectedRoute exact path='/' component={Home} />
+					<Route exact path='/login' component={Login} />
+					<Route exact path='/signup' component={Signup} />
+					<Route path='/*' component={PageNotFound} />
 				</Switch>
 			</Router>
 		</div>

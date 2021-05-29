@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classes from './Chat.module.css';
 // import { io } from 'socket.io-client';
@@ -31,7 +31,7 @@ const loadChat = (sendTo) => {
 };
 
 const Chat = (props) => {
-	const history = useHistory();
+	// const history = useHistory();
 
 	const { id } = useParams();
 	const sendTo = id;
@@ -47,16 +47,6 @@ const Chat = (props) => {
 		}
 		// eslint-disable-next-line
 	}, []);
-
-	//protected route
-	useEffect(() => {
-		console.log('protected route');
-		if (props.token === null) {
-			history.push('/login');
-			return;
-		}
-		// eslint-disable-next-line
-	}, [props.token]);
 
 	//getting the friend info
 	useEffect(() => {
