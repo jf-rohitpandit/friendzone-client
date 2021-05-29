@@ -8,7 +8,7 @@ import { getSingleFriend } from '../../actions/friendAction';
 import { Fragment } from 'react';
 import Spinner from '../../components/UI/spinner/Spinner';
 
-const token = loadToken();
+// const token = loadToken();
 
 // const sendTo = window.location.href.split('/')[4];
 // console.log(sendTo);
