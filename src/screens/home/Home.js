@@ -86,9 +86,9 @@ const Home = (props) => {
 					<div className='d-flex flex-row  rounded text-white bg-primary m-4'>
 						{image && (
 							<img
-								src={`data:imgage/jpg;base64,${Buffer.from(image.data).toString(
-									'base64'
-								)}`}
+								src={`data:imgage/jpg;base64,${Buffer.from(
+									image.data.data
+								).toString('base64')}`}
 								alt=''
 								className={classes.avtar}
 							/>
