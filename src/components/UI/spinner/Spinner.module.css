@@ -1,7 +1,6 @@
 .looks {
-	position: absolute;
+	position: fixed;
 	top: 0px;
-	z-index: 10;
 	height: 100vh;
 	width: 100vw;
 	display: flex;

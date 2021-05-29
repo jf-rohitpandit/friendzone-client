@@ -28,6 +28,7 @@ const Home = (props) => {
 		}
 		if (props.userInfo && props.token) {
 			setDataIntoState(props.userInfo);
+			setNoUser(false);
 		}
 		// eslint-disable-next-line
 	}, [change, props.userInfo]);
@@ -47,9 +48,9 @@ const Home = (props) => {
 
 	const setDataIntoState = (userInfo) => {
 		console.log(userInfo);
-		const { name, image, country, age, aboutMe, gender, id } = userInfo;
+		const { name, avtar, country, age, aboutMe, gender, id } = userInfo;
 
-		console.log(name, image, country, age, aboutMe, gender);
+		// console.log(name, avtar, country, age, aboutMe, gender);
 
 		console.log(image);
 		if (name) {
@@ -61,8 +62,8 @@ const Home = (props) => {
 		if (country) {
 			setCountry(country);
 		}
-		if (image) {
-			setImage(image);
+		if (avtar) {
+			setImage(avtar);
 		}
 		if (aboutMe) {
 			setAboutMe(aboutMe);
@@ -85,7 +86,7 @@ const Home = (props) => {
 					<div className='d-flex flex-row  rounded text-white bg-primary m-4'>
 						{image && (
 							<img
-								src={`data:imgage/jpg;base64,${Buffer.from(image).toString(
+								src={`data:imgage/jpg;base64,${Buffer.from(image.data).toString(
 									'base64'
 								)}`}
 								alt=''

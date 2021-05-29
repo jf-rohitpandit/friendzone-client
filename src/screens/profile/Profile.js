@@ -74,7 +74,7 @@ const Profile = (props) => {
 
 	useEffect(() => {
 		if (imgPrev === '') {
-			showImage(avtar);
+			showImage(avtar.data);
 		} else {
 			previewImage(imgPrev);
 		}
@@ -181,7 +181,7 @@ const Profile = (props) => {
 								/>
 							) : avtar !== '' ? (
 								<img
-									src={avtar}
+									src={avtar.data}
 									alt='avtar'
 									id='avtar'
 									className={classes.avtar}
