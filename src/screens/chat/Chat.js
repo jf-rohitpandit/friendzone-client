@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classes from './Chat.module.css';
 // import { io } from 'socket.io-client';
-import { loadToken } from '../../localStorage';
+// import { loadToken } from '../../localStorage';
 import { getSingleFriend } from '../../actions/friendAction';
 import { Fragment } from 'react';
 import Spinner from '../../components/UI/spinner/Spinner';
