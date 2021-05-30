@@ -16,9 +16,9 @@ const Profile = (props) => {
 	const [country, setCountry] = useState('');
 	const [aboutMe, setaboutMe] = useState('');
 
-	const showImage = (photoFile) => {
-		if (photoFile === '') return;
-		const arrayBufferView = new Uint8Array(photoFile.data);
+	const showImage = (avtar) => {
+		if (!avtar || !avtar.data) return;
+		const arrayBufferView = new Uint8Array(avtar.data.data);
 		const img = document.getElementById('avtar');
 		img.src = URL.createObjectURL(
 			new Blob([arrayBufferView], { type: MimeType })
@@ -179,7 +179,7 @@ const Profile = (props) => {
 									id='preview'
 									className={classes.avtar}
 								/>
-							) : avtar !== '' ? (
+							) : avtar && avtar.data ? (
 								<img
 									src={avtar.data}
 									alt='avtar'

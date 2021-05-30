@@ -50,7 +50,7 @@ const Home = (props) => {
 		console.log(userInfo);
 		const { name, avtar, country, age, aboutMe, gender, id } = userInfo;
 
-		// console.log(name, avtar, country, age, aboutMe, gender);
+		console.log('userInfo', name, avtar, country, age, aboutMe, gender);
 
 		console.log(image);
 		if (name) {
@@ -64,6 +64,7 @@ const Home = (props) => {
 		}
 		if (avtar) {
 			setImage(avtar);
+			console.log('typeof avtar.data', typeof avtar.data);
 		}
 		if (aboutMe) {
 			setAboutMe(aboutMe);
@@ -80,18 +81,22 @@ const Home = (props) => {
 		<Fragment>
 			{props.userLoading && <Spinner />}
 			<div className='container'>
-				{noUser ? (
+				{noUser && !props.loading ? (
 					<h1>No new user</h1>
 				) : (
 					<div className='d-flex flex-row  rounded text-white bg-primary m-4'>
-						{image && (
+						{props.userInfo &&
+						props.userInfo.image &&
+						props.userInfo.image.data ? (
 							<img
-								src={`data:imgage/jpg;base64,${Buffer.from(
-									image.data.data
+								src={`data:images/jpg;base64,${Buffer.from(
+									props.userInfo.image.data.data
 								).toString('base64')}`}
 								alt=''
 								className={classes.avtar}
 							/>
+						) : (
+							<i className='fas fa-user fa-10x m-auto' />
 						)}
 						<div className='d-flex flex-column justify-content-center p-3'>
 							<div className=''>

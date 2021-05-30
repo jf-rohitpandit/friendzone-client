@@ -103,10 +103,12 @@ const Chat = (props) => {
 				<hr />
 				<div className=' bg-primary p-2'>
 					<div className='d-flex align-items-center m-2'>
-						{props.singleFriend && props.singleFriend.photo != null ? (
+						{props.singleFriend &&
+						props.singleFriend.photo &&
+						props.singleFriend.photo.data ? (
 							<img
 								src={`data:image/jpg;base64,${Buffer.from(
-									props.singleFriend.photo
+									props.singleFriend.photo.data
 								).toString('base64')}`}
 								className={classes.avtar}
 								alt='user avtar'

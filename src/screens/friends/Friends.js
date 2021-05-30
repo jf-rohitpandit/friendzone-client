@@ -35,10 +35,10 @@ const Friends = (props) => {
 									key={friend.id}
 									onClick={() => openChat(friend.id)}>
 									<div className='d-flex flex-row'>
-										{friend.photo != null ? (
+										{friend.photo && friend.photo.data ? (
 											<img
 												src={`data:image/jpg;base64,${Buffer.from(
-													friend.photo.data
+													friend.photo.data.data
 												).toString('base64')}`}
 												className={classes.avtar}
 												alt='avtar'
