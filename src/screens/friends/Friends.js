@@ -28,7 +28,7 @@ const Friends = (props) => {
 				<hr />
 				<div className=''>
 					<ul className='list-group'>
-						{props.friendList &&
+						{props.friendList ? (
 							props.friendList.map((friend) => (
 								<li
 									className='list-group-item'
@@ -50,7 +50,10 @@ const Friends = (props) => {
 										<h6 className='align-self-center pl-2'>{friend.name}</h6>
 									</div>
 								</li>
-							))}
+							))
+						) : (
+							<h2>No Friends yet!</h2>
+						)}
 					</ul>
 				</div>
 			</div>
