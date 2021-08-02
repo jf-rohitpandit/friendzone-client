@@ -24,8 +24,8 @@ export const updateProfile = (userInfo) => async (dispatch) => {
         formdata.append('aboutMe', userInfo.aboutMe);
 
         const result = await axios.put(
-            // 'https://sleepy-basin-66163.herokuapp.com/profile',
-            'http://localhost:5000/profile',
+            'https://sleepy-basin-66163.herokuapp.com/profile',
+            // 'http://localhost:5000/profile',
             formdata
         );
 
@@ -47,8 +47,8 @@ export const getProfile = () => async (dispatch) => {
         dispatch({ type: GET_PROFILE_REQUEST });
 
         const user = await axios.get(
-            // 'https://sleepy-basin-66163.herokuapp.com/profile'
-            'http://localhost:5000/profile'
+            'https://sleepy-basin-66163.herokuapp.com/profile'
+            // 'http://localhost:5000/profile'
         );
 
         dispatch({ type: GET_PROFILE_SUCCESS, payload: user.data.user });

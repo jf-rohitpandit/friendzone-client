@@ -16,8 +16,8 @@ export const registerUser = (email, password) => async (dispatch) => {
         dispatch({ type: USER_REGISTER_REQUEST });
 
         const result = await axios.post(
-            // 'https://sleepy-basin-66163.herokuapp.com/auth/signup',
-            'http://localhost:5000/auth/signup',
+            'https://sleepy-basin-66163.herokuapp.com/auth/signup',
+            // 'http://localhost:5000/auth/signup',
             {
                 email,
                 password,
@@ -45,8 +45,8 @@ export const loginUser = (email, password) => async (dispatch) => {
         dispatch({ type: USER_LOGIN_REQUEST });
 
         const result = await axios.post(
-            // 'https://sleepy-basin-66163.herokuapp.com/auth/login',
-            'http://localhost:5000/auth/login',
+            'https://sleepy-basin-66163.herokuapp.com/auth/login',
+            // 'http://localhost:5000/auth/login',
             {
                 email,
                 password,

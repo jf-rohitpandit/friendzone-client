@@ -10,8 +10,8 @@ export const loadUser = () => async (dispatch) => {
         dispatch({ type: LOAD_USER_REQUEST });
 
         const result = await axios.get(
-            // 'https://sleepy-basin-66163.herokuapp.com/home'
-            'http://localhost:5000/home'
+            'https://sleepy-basin-66163.herokuapp.com/home'
+            // 'http://localhost:5000/home'
         );
 
         dispatch({ type: LOAD_USER_SUCCESS, payload: result.data.userInfo });

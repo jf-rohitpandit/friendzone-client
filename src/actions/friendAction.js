@@ -47,8 +47,8 @@ export const getSingleFriend = (id) => async (dispatch) => {
 
         //axios logic
         const result = await axios.get(
-            // `https://sleepy-basin-66163.herokuapp.com/friend/${id}`
-            `http://localhost:5000/friend/${id}`
+            `https://sleepy-basin-66163.herokuapp.com/friend/${id}`
+            // `http://localhost:5000/friend/${id}`
         );
 
         dispatch({
