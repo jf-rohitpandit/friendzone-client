@@ -15,7 +15,6 @@ const Home = (props) => {
     const [aboutMe, setAboutMe] = useState('');
     const [gender, setGender] = useState('');
     const [change, setChange] = useState(1);
-    const [noUser, setNoUser] = useState(false);
 
     useEffect(() => {
         props.loadUser();
@@ -23,12 +22,8 @@ const Home = (props) => {
     }, []);
 
     useEffect(() => {
-        if (props.userInfo === null) {
-            setNoUser(true);
-        }
         if (props.userInfo && props.token) {
             setDataIntoState(props.userInfo);
-            setNoUser(false);
         }
         // eslint-disable-next-line
     }, [change, props.userInfo]);
